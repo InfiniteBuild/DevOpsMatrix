@@ -1,11 +1,7 @@
-﻿using DevOpsInterface;
+﻿using DevOpsMatrix.Interface;
 using Microsoft.TeamFoundation.SourceControl.WebApi;
-using System.IO;
-using System.Net.Mime;
-using System.Text;
-using System.Xml.Linq;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfvcSourceItem : ISourceCodeItem
     {

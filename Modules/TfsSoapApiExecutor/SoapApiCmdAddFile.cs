@@ -1,12 +1,12 @@
-﻿using DevOpsSoapInterface;
+﻿using DevOpsMatrix.Tfs.Soap.Interface;
 using System;
 using Newtonsoft.Json;
 using Microsoft.TeamFoundation.VersionControl.Client;
 using System.IO;
 using System.Threading;
-using LoggingLibInterface;
+using Lumberjack.Interface;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     internal class SoapApiCmdAddFile : SoapApiCmdBase
     {
@@ -23,9 +23,9 @@ namespace TfsSoapApiExecutor
             SoapPayloadAddFile payloadObj = JsonConvert.DeserializeObject<SoapPayloadAddFile>(command.CmdHeader);
 
             if (!string.IsNullOrWhiteSpace(payloadObj.EncodingName))
-                Feedback.LogUserMessage("Command: Add (" + payloadObj.EncodingName + ") " + payloadObj.ItemServerPath);
+                Logging48.LogUserMessage("Command: Add (" + payloadObj.EncodingName + ") " + payloadObj.ItemServerPath);
             else
-                Feedback.LogUserMessage("Command: Add " + payloadObj.ItemServerPath);
+                Logging48.LogUserMessage("Command: Add " + payloadObj.ItemServerPath);
 
             Workspace area = WorkContext.Instance.GetWorkspace(payloadObj.ItemServerPath);
 
@@ -68,8 +68,8 @@ namespace TfsSoapApiExecutor
                 }
                 catch (Exception ex)
                 {
-                    Feedback.LogWarning("Error: " + ex.Message);
-                    Feedback.LogWarning("Retrying...");
+                    Logging48.LogWarning("Error: " + ex.Message);
+                    Logging48.LogWarning("Retrying...");
                     errorMsg = ex.ToString();
                     retryCount++;
                     Thread.Sleep(1000);

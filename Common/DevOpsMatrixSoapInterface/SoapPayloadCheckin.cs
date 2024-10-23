@@ -1,5 +1,5 @@
 ﻿
-namespace DevOpsSoapInterface
+namespace DevOpsMatrix.Tfs.Soap.Interface
 {
     public class SoapPayloadCheckin : SoapPayloadBase
     {

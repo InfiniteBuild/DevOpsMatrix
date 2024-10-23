@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     public class WorkContext
     {

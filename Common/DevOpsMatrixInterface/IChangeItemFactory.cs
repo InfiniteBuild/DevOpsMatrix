@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevOpsInterface
+namespace DevOpsMatrix.Interface
 {
     public interface IChangeItemFactory
     {

@@ -1,8 +1,8 @@
-﻿using DevOpsInterface;
+﻿using DevOpsMatrix.Interface;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public static class TfsServiceTools
     {

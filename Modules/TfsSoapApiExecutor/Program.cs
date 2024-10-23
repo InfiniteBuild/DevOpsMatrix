@@ -1,15 +1,15 @@
-﻿using LoggingLibInterface;
+﻿using Lumberjack.Interface;
 using System;
 using System.Threading;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Feedback.CreateConsoleLog();
-            Feedback.CreateLogFile("TfsSoapApiExecutor.log");
+            Logging48.CreateConsoleLog();
+            Logging48.CreateLogFile("TfsSoapApiExecutor.log");
 
             IPCServer server = new IPCServer();
             server.Start();
@@ -17,7 +17,7 @@ namespace TfsSoapApiExecutor
 
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
-                Feedback.LogError("Unhandled exception: " + e.ExceptionObject.ToString());
+                Logging48.LogError("Unhandled exception: " + e.ExceptionObject.ToString());
             };
 
             while (server.IsRunning)
@@ -34,7 +34,7 @@ namespace TfsSoapApiExecutor
                 Thread.Sleep(500);
             }
 
-            Feedback.Close();
+            Logging48.Close();
 
             return;
         }

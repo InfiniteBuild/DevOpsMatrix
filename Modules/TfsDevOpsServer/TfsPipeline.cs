@@ -1,7 +1,7 @@
-﻿using DevOpsInterface;
+﻿using DevOpsMatrix.Interface;
 using Microsoft.TeamFoundation.Build.WebApi;
 
-namespace TfsDevOpsServer
+namespace TfsDevOpsMatrix.Tfs.ServerDevOpsServer
 {
     public class TfsPipeline : IDevOpsPipeline
     {

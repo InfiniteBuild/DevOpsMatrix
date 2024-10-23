@@ -1,10 +1,9 @@
-﻿using DevOpsSoapInterface;
-using LoggingLibInterface;
-using Newtonsoft.Json;
+﻿using DevOpsMatrix.Tfs.Soap.Interface;
+using Lumberjack.Interface;
 using System;
 using System.Threading;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     internal class SoapApiCmdUndo : SoapApiCmdBase
     {
@@ -17,7 +16,7 @@ namespace TfsSoapApiExecutor
             CmdResult result = new CmdResult();
             result.Result = "success";
 
-            Feedback.LogUserMessage("Command: UndoChanges");
+            Logging48.LogUserMessage("Command: UndoChanges");
 
             bool retry = true;
             string errorMsg = string.Empty;
@@ -32,8 +31,8 @@ namespace TfsSoapApiExecutor
                 }
                 catch (Exception ex)
                 {
-                    Feedback.LogWarning("Error: " + ex.Message);
-                    Feedback.LogWarning("Retrying...");
+                    Logging48.LogWarning("Error: " + ex.Message);
+                    Logging48.LogWarning("Retrying...");
                     errorMsg = ex.ToString();
                     retryCount++;
                     Thread.Sleep(1000);

@@ -1,7 +1,7 @@
 ﻿
-using DevOpsInterface;
+using DevOpsMatrix.Interface;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfsVcMergeInfo : IMergeItemInfo
     {

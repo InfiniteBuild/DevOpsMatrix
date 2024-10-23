@@ -1,5 +1,5 @@
 ﻿
-namespace DevOpsInterface
+namespace DevOpsMatrix.Interface
 {
     public class DevOpsFeatureToggle
     {

@@ -1,11 +1,6 @@
-﻿using DevOpsInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DevOpsMatrix.Interface;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfsChangeItemFactory : IChangeItemFactory
     {

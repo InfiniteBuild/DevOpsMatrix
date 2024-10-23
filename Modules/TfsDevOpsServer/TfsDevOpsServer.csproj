@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\DevOpsInterface\DevOpsInterface.csproj" />
-    <ProjectReference Include="..\..\Common\DevOpsSoapInterface\DevOpsSoapInterface.csproj" />
+    <ProjectReference Include="..\..\Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj" />
+    <ProjectReference Include="..\..\Common\DevOpsMatrixSoapInterface\DevOpsMatrixSoapInterface.csproj" />
   </ItemGroup>
 
 </Project>

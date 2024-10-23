@@ -1,5 +1,5 @@
-using DevOpsInterface;
-using Microsoft.VisualStudio.Services.WebApi;
+using DevOpsMatrix.Core;
+using DevOpsMatrix.Interface;
 
 namespace TfsTestCases
 {

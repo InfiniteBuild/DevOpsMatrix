@@ -1,8 +1,8 @@
-﻿using DevOpsInterface;
+﻿using DevOpsMatrix.Interface;
 using Microsoft.TeamFoundation.Core.WebApi;
 using Microsoft.VisualStudio.Services.WebApi;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfsDevOpsServer : DevOpsServer
     {

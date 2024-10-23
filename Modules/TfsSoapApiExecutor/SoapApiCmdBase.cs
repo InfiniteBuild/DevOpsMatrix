@@ -1,7 +1,7 @@
-﻿using DevOpsSoapInterface;
+﻿using DevOpsMatrix.Tfs.Soap.Interface;
 using System.IO;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     public abstract class SoapApiCmdBase
     {

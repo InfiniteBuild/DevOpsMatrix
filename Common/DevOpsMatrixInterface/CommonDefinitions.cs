@@ -1,7 +1,7 @@
 ﻿
 using System.Runtime.Serialization;
 
-namespace DevOpsInterface
+namespace DevOpsMatrix.Interface
 {
     public delegate IDevOpsServer ServerCreator(IDevOpsSettings settings);
 

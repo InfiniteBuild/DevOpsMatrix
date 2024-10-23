@@ -2,14 +2,14 @@
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
-using DevOpsSoapInterface;
 using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
-using LoggingLibInterface;
+using Lumberjack.Interface;
+using DevOpsMatrix.Tfs.Soap.Interface;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     internal class IPCServer
     {
@@ -30,7 +30,7 @@ namespace TfsSoapApiExecutor
 
         public void Start()
         {
-            Feedback.LogInfo("Server started.");
+            Logging48.LogInfo("Server started.");
             _serverThread = new Thread(new ThreadStart(StartListening));
             _serverThread.Start();
         }
@@ -50,7 +50,7 @@ namespace TfsSoapApiExecutor
                         try { ProcessRequest(stream); }
                         catch (Exception exc) 
                         {
-                            Feedback.LogError($"Error processing client request: {exc.ToString()}");
+                            Logging48.LogError($"Error processing client request: {exc.ToString()}");
                         }
                         finally { stream.Close(); client.Close(); }
                     });
@@ -68,7 +68,7 @@ namespace TfsSoapApiExecutor
                 }
             }
 
-            Feedback.LogInfo("Server stopped.");
+            Logging48.LogInfo("Server stopped.");
             _tcpListener.Stop();
         }
 
@@ -203,7 +203,7 @@ namespace TfsSoapApiExecutor
                 }
                 catch (Exception ex)
                 {
-                    Feedback.LogError($"Error executing command: {ex.Message}");
+                    Logging48.LogError($"Error executing command: {ex.Message}");
                     result = new SoapResult();
                     result.Result = "error";
                     result.Message = ex.Message;
@@ -213,7 +213,7 @@ namespace TfsSoapApiExecutor
             }
             catch (Exception ex)
             {
-                Feedback.LogError($"Error processing client request: {ex.ToString()}");
+                Logging48.LogError($"Error processing client request: {ex.ToString()}");
                 SoapResult result = new SoapResult();
                 result.Result = "error";
                 result.Message = ex.Message;

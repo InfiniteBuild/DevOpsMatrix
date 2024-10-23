@@ -1,7 +1,7 @@
-﻿using DevOpsInterface;
-using DevOpsSoapInterface;
+﻿using DevOpsMatrix.Interface;
+using DevOpsMatrix.Tfs.Soap.Interface;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfvcSourceCodePendingChangeSet : ISourceCodePendingChangeSet, IDisposable
     {

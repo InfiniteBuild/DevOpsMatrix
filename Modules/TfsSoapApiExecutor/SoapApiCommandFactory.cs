@@ -1,11 +1,7 @@
-﻿using DevOpsSoapInterface;
-using System;
+﻿using DevOpsMatrix.Tfs.Soap.Interface;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     public delegate SoapApiCmdBase SoapCommandCreator();
 

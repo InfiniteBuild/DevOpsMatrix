@@ -1,6 +1,7 @@
-﻿using System.Reflection;
+﻿using DevOpsMatrix.Interface;
+using System.Reflection;
 
-namespace DevOpsInterface
+namespace DevOpsMatrix.Core
 {
     public class DevOpsFactory
     {

@@ -19,9 +19,6 @@
     <Content Include="TestData\7z.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\WINCC-ES1_EU.lpu">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -42,8 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\DevOpsCore\DevOpsCore.csproj" />
-    <ProjectReference Include="..\..\Common\DevOpsInterface\DevOpsInterface.csproj" />
+    <ProjectReference Include="..\..\Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj" />
+    <ProjectReference Include="..\..\Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj" />
     <ProjectReference Include="..\..\Modules\TfsDevOpsServer\TfsDevOpsServer.csproj" />
   </ItemGroup>
 

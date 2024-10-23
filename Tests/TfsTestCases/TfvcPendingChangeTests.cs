@@ -1,7 +1,6 @@
-using DevOpsInterface;
-using System.Text;
-using TfsDevOpsServer;
-using System.Reflection;
+using DevOpsMatrix.Interface;
+using DevOpsMatrix.Core;
+using DevOpsMatrix.Tfs.Server;
 
 namespace TfsTestCases
 {

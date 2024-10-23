@@ -1,12 +1,11 @@
-﻿using DevOpsInterface;
+﻿using DevOpsMatrix.Interface;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfsChangeManagement : IChangeManagement
     {

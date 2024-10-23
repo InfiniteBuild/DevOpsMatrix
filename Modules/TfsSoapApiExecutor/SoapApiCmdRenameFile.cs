@@ -1,12 +1,11 @@
-﻿using DevOpsSoapInterface;
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using Microsoft.TeamFoundation.VersionControl.Client;
-using System.IO;
 using System.Threading;
-using LoggingLibInterface;
+using DevOpsMatrix.Tfs.Soap.Interface;
+using Lumberjack.Interface;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     internal class SoapApiCmdRenameFile : SoapApiCmdBase
     {
@@ -22,7 +21,7 @@ namespace TfsSoapApiExecutor
             // Parse the payload
             SoapPayloadRenameFile payloadObj = JsonConvert.DeserializeObject<SoapPayloadRenameFile>(command.CmdHeader);
 
-            Feedback.LogUserMessage("Command: Rename " + payloadObj.ItemServerPath + " -> " + payloadObj.NewServerPath);
+            Logging48.LogUserMessage("Command: Rename " + payloadObj.ItemServerPath + " -> " + payloadObj.NewServerPath);
 
             Workspace area = WorkContext.Instance.GetWorkspace(payloadObj.ItemServerPath);
 
@@ -59,8 +58,8 @@ namespace TfsSoapApiExecutor
                 }
                 catch (Exception ex)
                 {
-                    Feedback.LogWarning("Error: " + ex.Message);
-                    Feedback.LogWarning("Retrying...");
+                    Logging48.LogWarning("Error: " + ex.Message);
+                    Logging48.LogWarning("Retrying...");
                     errorMsg = ex.ToString();
                     retryCount++;
                     Thread.Sleep(1000);

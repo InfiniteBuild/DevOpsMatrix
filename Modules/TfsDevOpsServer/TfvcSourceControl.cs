@@ -1,12 +1,10 @@
-﻿using DevOpsInterface;
-using DevOpsSoapInterface;
+﻿using DevOpsMatrix.Interface;
+using DevOpsMatrix.Tfs.Soap.Interface;
 using Microsoft.TeamFoundation.SourceControl.WebApi;
 using Microsoft.VisualStudio.Services.WebApi;
-using System;
-using System.Linq.Expressions;
 using System.Text;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfvcSourceControl : TfsSourceControl, ITfvcSourceControl
     {

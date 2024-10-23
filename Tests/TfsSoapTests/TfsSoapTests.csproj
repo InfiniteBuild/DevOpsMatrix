@@ -111,9 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\DevOpsSoapInterface\DevOpsSoapInterface.csproj">
-      <Project>{7f76cdba-8567-46e0-ae5d-91e80d5502c7}</Project>
-      <Name>DevOpsSoapInterface</Name>
+    <ProjectReference Include="..\..\Common\DevOpsMatrixSoapInterface\DevOpsMatrixSoapInterface.csproj">
+      <Project>{ebc1ac34-b8f8-4ec9-aeb5-83a62a9d504d}</Project>
+      <Name>DevOpsMatrixSoapInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Modules\TfsSoapApiExecutor\TfsSoapApiExecutor.csproj">
       <Project>{814a8f27-03c6-4ab8-b15b-6c73581215b2}</Project>

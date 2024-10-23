@@ -1,9 +1,9 @@
-﻿using DevOpsInterface;
-using Microsoft.Azure.Pipelines.WebApi;
+﻿using DevOpsMatrix.Interface;
 using Microsoft.TeamFoundation.Build.WebApi;
 using Microsoft.VisualStudio.Services.WebApi;
+using TfsDevOpsMatrix.Tfs.ServerDevOpsServer;
 
-namespace TfsDevOpsServer
+namespace DevOpsMatrix.Tfs.Server
 {
     public class TfsBuildSystem : IDevOpsBuildSystem
     {

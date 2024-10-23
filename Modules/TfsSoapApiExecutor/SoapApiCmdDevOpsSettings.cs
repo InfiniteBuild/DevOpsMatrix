@@ -1,8 +1,8 @@
-﻿using DevOpsSoapInterface;
+﻿using DevOpsMatrix.Tfs.Soap.Interface;
 using Newtonsoft.Json;
 using System;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     internal class SoapApiCmdDevOpsSettings : SoapApiCmdBase
     {

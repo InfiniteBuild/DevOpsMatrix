@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 
 
-namespace DevOpsSoapInterface
+namespace DevOpsMatrix.Tfs.Soap.Interface
 {
     public class SoapExecutor : IDisposable
     {

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F76CDBA-8567-46E0-AE5D-91E80D5502C7}</ProjectGuid>
+    <ProjectGuid>{EBC1AC34-B8F8-4EC9-AEB5-83A62A9D504D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DevOpsSoapInterface</RootNamespace>

@@ -1,10 +1,10 @@
-﻿using DevOpsSoapInterface;
-using LoggingLibInterface;
+﻿using DevOpsMatrix.Tfs.Soap.Interface;
+using Lumberjack.Interface;
 using Newtonsoft.Json;
 using System;
 using System.Threading;
 
-namespace TfsSoapApiExecutor
+namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
 {
     internal class SoapApiCmdCheckin : SoapApiCmdBase
     {
@@ -20,7 +20,7 @@ namespace TfsSoapApiExecutor
             // Parse the payload
             SoapPayloadCheckin payloadObj = JsonConvert.DeserializeObject<SoapPayloadCheckin>(command.CmdHeader);
 
-            Feedback.LogUserMessage("Command: Checkin " + payloadObj.Comment);
+            Logging48.LogUserMessage("Command: Checkin " + payloadObj.Comment);
 
             int changeset = -1;
             
@@ -38,8 +38,8 @@ namespace TfsSoapApiExecutor
                 }
                 catch (Exception ex)
                 {
-                    Feedback.LogWarning("Error: " + ex.Message);
-                    Feedback.LogWarning("Retrying...");
+                    Logging48.LogWarning("Error: " + ex.Message);
+                    Logging48.LogWarning("Retrying...");
                     errorMsg = ex.ToString();
                     retryCount++;
                     Thread.Sleep(1000);

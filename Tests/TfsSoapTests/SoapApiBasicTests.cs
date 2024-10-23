@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using DevOpsMatrix.Tfs.Soap.Interface;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading;
 
 namespace TfsSoapTests
@@ -10,7 +10,7 @@ namespace TfsSoapTests
         [TestMethod]
         public void StartAndShutdown()
         {
-            using (var executor = new DevOpsSoapInterface.SoapExecutor())
+            using (var executor = new SoapExecutor())
             {
                 Assert.AreEqual("running", executor.Status);
 

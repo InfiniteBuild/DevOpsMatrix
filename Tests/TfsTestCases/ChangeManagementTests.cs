@@ -1,6 +1,6 @@
-using DevOpsInterface;
-using Microsoft.VisualStudio.Services.WebApi;
-using TfsDevOpsServer;
+using DevOpsMatrix.Core;
+using DevOpsMatrix.Interface;
+using DevOpsMatrix.Tfs.Server;
 
 namespace TfsTestCases
 {
