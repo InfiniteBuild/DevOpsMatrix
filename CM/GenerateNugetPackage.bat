@@ -30,7 +30,7 @@ echo ^</dependencies^> >> %nugetDir%\interface.nuspec
 echo ^</metadata^> >> %nugetDir%\interface.nuspec
 echo ^<files^> >> %nugetDir%\interface.nuspec
 
-echo ^<file src="%targetDir%\DevOpsLib\**" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%targetDir%\DevOpsMatrix\**" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%rootdir%\CM\Nuget\DevOpsMatrix.targets" target="build"/^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%rootDir%\README.md" target="docs\" /^> >> %nugetDir%\interface.nuspec
 
