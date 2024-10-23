@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestSettings>
+  <DevOpsServers>
+    <Server>
+      <ServerType>Tfs</ServerType>
+      <Name>Chief</Name>
+      <Project>TestProject</Project>
+      <Url>https://chief/TestProjects</Url>
+      <Token></Token>
+    </Server>
+	<Server>
+		<ServerType>Tfs</ServerType>
+		<Name>Chief-PNB</Name>
+		<Project>ProjectNotebook</Project>
+		<Url>https://chief/DefaultCollection</Url>
+		<Token></Token>
+	</Server>
+  </DevOpsServers>
+</TestSettings>
