@@ -15,6 +15,8 @@ REM Create nuspec
 echo Create NuSpec file
 if EXIST %nugetDir%\interface.nuspec erase /f /q %nugetDir%\interface.nuspec
 
+copy /y %rootdir%\LICENSE %nugetDir%\LICENSE.txt
+
 echo ^<?xml version="1.0" encoding="utf-8"?^> >> %nugetDir%\interface.nuspec
 echo ^<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"^> >> %nugetDir%\interface.nuspec
 echo ^<metadata^> >> %nugetDir%\interface.nuspec
@@ -24,15 +26,19 @@ echo ^<description^>A library to interface with DevOps systems^</description^> >
 echo ^<authors^>Jared Shipley^</authors^> >> %nugetDir%\interface.nuspec
 echo ^<repository type="git" url="https://github.com/OrgShipjd2001/DevOpsMatrix.git" /^> >> %nugetDir%\interface.nuspec
 echo ^<readme^>docs\README.md^</readme^> >> %nugetDir%\interface.nuspec
+echo ^<license type="file"^>LICENSE.txt^</license^>  >> %nugetDir%\interface.nuspec
 echo ^<dependencies^> >> %nugetDir%\interface.nuspec
 echo ^<group targetFramework=".NET8.0" /^> >> %nugetDir%\interface.nuspec
 echo ^</dependencies^> >> %nugetDir%\interface.nuspec
 echo ^</metadata^> >> %nugetDir%\interface.nuspec
 echo ^<files^> >> %nugetDir%\interface.nuspec
 
-echo ^<file src="%targetDir%\DevOpsMatrix\**" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
-echo ^<file src="%rootdir%\CM\Nuget\DevOpsMatrix.targets" target="build"/^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrixInterface.dll" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrixInterface.pdb" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrixInterface.deps.json" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%targetDir%\DevOpsMatrix\**" target="content\net8.0"/^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%rootDir%\README.md" target="docs\" /^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%nugetdir%\LICENSE.txt" target="" /^> >> %nugetDir%\interface.nuspec
 
 echo ^</files^> >> %nugetDir%\interface.nuspec
 echo ^</package^> >> %nugetDir%\interface.nuspec
