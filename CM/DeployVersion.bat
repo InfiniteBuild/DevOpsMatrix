@@ -6,7 +6,7 @@ set publishDir=%rootDir%\Publish
 set zipDir=%PublishDir%\zip
 set targetDir=%PublishDir%\Release
 
-call %rootDir%\CM\Release\GenerateRelease.bat
+call %rootDir%\CM\GenerateRelease.bat
 
 echo.
 echo Push packages to GitLabServer
