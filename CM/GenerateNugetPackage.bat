@@ -22,23 +22,26 @@ echo ^<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"
 echo ^<metadata^> >> %nugetDir%\interface.nuspec
 echo ^<id^>DevOpsMatrix^</id^> >> %nugetDir%\interface.nuspec
 echo ^<version^>%version%^</version^> >> %nugetDir%\interface.nuspec
-echo ^<description^>A library to interface with DevOps systems^</description^> >> %nugetDir%\interface.nuspec
+echo ^<description^>A library to interface with different DevOps systems through a common interface.^</description^> >> %nugetDir%\interface.nuspec
 echo ^<authors^>Jared Shipley^</authors^> >> %nugetDir%\interface.nuspec
 echo ^<repository type="git" url="https://github.com/OrgShipjd2001/DevOpsMatrix.git" /^> >> %nugetDir%\interface.nuspec
 echo ^<readme^>docs\README.md^</readme^> >> %nugetDir%\interface.nuspec
 echo ^<license type="file"^>LICENSE.txt^</license^>  >> %nugetDir%\interface.nuspec
 echo ^<dependencies^> >> %nugetDir%\interface.nuspec
-echo ^<group targetFramework=".NET8.0" /^> >> %nugetDir%\interface.nuspec
+echo ^<group targetFramework="net8.0"^> >> %nugetDir%\interface.nuspec
+REM echo ^<dependency id="Microsoft.TeamFoundationServer.Client" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
+REM echo ^<dependency id="Microsoft.VisualStudio.Services.InteractiveClient" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
+REM echo ^<dependency id="Microsoft.TeamFoundationServer.ExtendedClient" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
+echo ^</group^> >> %nugetDir%\interface.nuspec
 echo ^</dependencies^> >> %nugetDir%\interface.nuspec
 echo ^</metadata^> >> %nugetDir%\interface.nuspec
 echo ^<files^> >> %nugetDir%\interface.nuspec
 
-echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrixInterface.dll" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
-echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrixInterface.pdb" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
-echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrixInterface.deps.json" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrix*.*" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%targetDir%\DevOpsMatrix\**" target="content\net8.0"/^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%rootDir%\README.md" target="docs\" /^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%nugetdir%\LICENSE.txt" target="" /^> >> %nugetDir%\interface.nuspec
+REM echo ^<file src="%rootDir%\CM\Nuget\DevOpsMatrix.targets" target="buildTransitive\" /^> >> %nugetDir%\interface.nuspec
 
 echo ^</files^> >> %nugetDir%\interface.nuspec
 echo ^</package^> >> %nugetDir%\interface.nuspec
@@ -47,5 +50,8 @@ echo ^</package^> >> %nugetDir%\interface.nuspec
 echo Generate Nuget package
 erase /f /q %nugetDir%\*.nupkg
 %nugetexe% pack %nugetDir%\interface.nuspec -OutputDirectory %nugetDir%
+
+%nugetexe% source |find "dev"
+if "%ERRORLEVEL%"=="0" %nugetexe% push %nugetDir%\*.nupkg -Source Dev
 
 :Done
