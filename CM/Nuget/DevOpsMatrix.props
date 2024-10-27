@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<ItemGroup>
+  <Content Include="$(MSBuildThisFileDirectory)..\lib\net8.0\**">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	 <Visible>false</Visible>
+  </Content>
+</ItemGroup>
+
+
+</Project>

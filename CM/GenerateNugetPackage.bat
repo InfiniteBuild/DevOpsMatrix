@@ -19,6 +19,7 @@ copy /y %rootdir%\LICENSE %nugetDir%\LICENSE.txt
 
 echo ^<?xml version="1.0" encoding="utf-8"?^> >> %nugetDir%\interface.nuspec
 echo ^<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"^> >> %nugetDir%\interface.nuspec
+
 echo ^<metadata^> >> %nugetDir%\interface.nuspec
 echo ^<id^>DevOpsMatrix^</id^> >> %nugetDir%\interface.nuspec
 echo ^<version^>%version%^</version^> >> %nugetDir%\interface.nuspec
@@ -35,15 +36,15 @@ REM echo ^<dependency id="Microsoft.TeamFoundationServer.ExtendedClient" version
 echo ^</group^> >> %nugetDir%\interface.nuspec
 echo ^</dependencies^> >> %nugetDir%\interface.nuspec
 echo ^</metadata^> >> %nugetDir%\interface.nuspec
-echo ^<files^> >> %nugetDir%\interface.nuspec
 
-echo ^<file src="%targetDir%\DevOpsMatrix\DevOpsMatrix*.*" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
-echo ^<file src="%targetDir%\DevOpsMatrix\**" target="content\net8.0"/^> >> %nugetDir%\interface.nuspec
+echo ^<files^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%targetDir%\DevOpsMatrix\**" target="lib\net8.0"/^> >> %nugetDir%\interface.nuspec
+REM echo ^<file src="%targetDir%\DevOpsMatrix\**" target="content\net8.0"/^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%rootDir%\README.md" target="docs\" /^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%nugetdir%\LICENSE.txt" target="" /^> >> %nugetDir%\interface.nuspec
-REM echo ^<file src="%rootDir%\CM\Nuget\DevOpsMatrix.targets" target="buildTransitive\" /^> >> %nugetDir%\interface.nuspec
-
+echo ^<file src="%rootDir%\CM\Nuget\DevOpsMatrix.props" target="build\" /^> >> %nugetDir%\interface.nuspec
 echo ^</files^> >> %nugetDir%\interface.nuspec
+
 echo ^</package^> >> %nugetDir%\interface.nuspec
 
 
