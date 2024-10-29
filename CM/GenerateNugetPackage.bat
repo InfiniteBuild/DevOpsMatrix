@@ -1,5 +1,6 @@
 @echo off
 
+set prerelese=-alpha
 set scriptDir=%~dp0
 set rootDir=%scriptDir%..
 set publishDir=%rootDir%\Publish
@@ -22,7 +23,7 @@ echo ^<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"
 
 echo ^<metadata^> >> %nugetDir%\interface.nuspec
 echo ^<id^>DevOpsMatrix^</id^> >> %nugetDir%\interface.nuspec
-echo ^<version^>%version%^</version^> >> %nugetDir%\interface.nuspec
+echo ^<version^>%version%%prerelese%^</version^> >> %nugetDir%\interface.nuspec
 echo ^<description^>A library to interface with different DevOps systems through a common interface.^</description^> >> %nugetDir%\interface.nuspec
 echo ^<authors^>Jared Shipley^</authors^> >> %nugetDir%\interface.nuspec
 echo ^<repository type="git" url="https://github.com/OrgShipjd2001/DevOpsMatrix.git" /^> >> %nugetDir%\interface.nuspec
