@@ -124,6 +124,25 @@ namespace DevOpsMatrix.Tfs.Soap.Interface
                 throw new InvalidOperationException("Failed to ping the API executor process.");
         }
 
+        public void ConfigureDevOpsSettings()
+        {
+            ConfigureDevOpsSettings(m_serverUri, m_projectName, m_accessToken);
+        }
+
+        public void ConfigureDevOpsSettings(string serverUri, string projectName, string accessToken)
+        {
+            m_serverUri = serverUri;
+            m_projectName = projectName;
+            m_accessToken = accessToken;
+
+            SoapCommand cmd = new SoapCommand(SoapPayloadDevOpsSettings.CommandName);
+            cmd.CmdHeader = JsonConvert.SerializeObject(new SoapPayloadDevOpsSettings(m_serverUri, m_projectName, m_accessToken));
+
+            SoapResult result = m_ipcClient.SendCommand(cmd);
+            if ((result == null) || (result.Result != "success"))
+                throw new InvalidOperationException("Failed to set the DevOps settings.  ");
+        }
+
         public void Startup()
         {
             m_ApiProcess = StartSoapAPIExecutor();
@@ -132,12 +151,8 @@ namespace DevOpsMatrix.Tfs.Soap.Interface
 
             m_ipcClient = new IPCClient();
 
-            SoapCommand cmd = new SoapCommand(SoapPayloadDevOpsSettings.CommandName);
-            cmd.CmdHeader = JsonConvert.SerializeObject(new SoapPayloadDevOpsSettings(m_serverUri, m_projectName, m_accessToken));
-
-            SoapResult result = m_ipcClient.SendCommand(cmd);
-            if ((result == null) || (result.Result != "success"))
-                throw new InvalidOperationException("Failed to set the DevOps settings.  ");
+            if ((!string.IsNullOrWhiteSpace(m_serverUri)) && (!string.IsNullOrWhiteSpace(m_projectName)) && (!string.IsNullOrWhiteSpace(m_accessToken)))
+                ConfigureDevOpsSettings();
         }
 
         public void Shutdown()

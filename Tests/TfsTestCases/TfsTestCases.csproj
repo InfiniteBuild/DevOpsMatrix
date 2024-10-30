@@ -10,16 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestData\7z.exe" />
-    <None Remove="TestData\WINCC-ES1_EU.lpu" />
-    <None Remove="TestSettings.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="TestData\7z.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -42,6 +33,7 @@
     <ProjectReference Include="..\..\Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj" />
     <ProjectReference Include="..\..\Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj" />
     <ProjectReference Include="..\..\Modules\TfsDevOpsServer\TfsDevOpsServer.csproj" />
+    <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
   </ItemGroup>
 
   <ItemGroup>

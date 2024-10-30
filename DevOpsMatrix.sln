@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevOpsMatrixInterface", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOpsMatrixSoapInterface", "Common\DevOpsMatrixSoapInterface\DevOpsMatrixSoapInterface.csproj", "{EBC1AC34-B8F8-4EC9-AEB5-83A62A9D504D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommon", "Tests\TestCommon\TestCommon.csproj", "{AF20D716-A835-47E4-87CF-DCB2037F3D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{EBC1AC34-B8F8-4EC9-AEB5-83A62A9D504D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC1AC34-B8F8-4EC9-AEB5-83A62A9D504D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBC1AC34-B8F8-4EC9-AEB5-83A62A9D504D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF20D716-A835-47E4-87CF-DCB2037F3D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF20D716-A835-47E4-87CF-DCB2037F3D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF20D716-A835-47E4-87CF-DCB2037F3D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF20D716-A835-47E4-87CF-DCB2037F3D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E3321CC9-FCFC-4D28-9926-5960FAE4564D} = {1689BC6B-2B11-441E-989F-74BB1B353EB2}
 		{D2437C56-E51B-4502-AD99-0B9458DF0DE7} = {1689BC6B-2B11-441E-989F-74BB1B353EB2}
+		{AF20D716-A835-47E4-87CF-DCB2037F3D99} = {1689BC6B-2B11-441E-989F-74BB1B353EB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7C78022E-EF6E-4C39-88E4-D11EF3440045}
