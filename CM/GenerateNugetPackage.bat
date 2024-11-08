@@ -29,6 +29,7 @@ echo ^<authors^>Jared Shipley^</authors^> >> %nugetDir%\interface.nuspec
 echo ^<repository type="git" url="https://github.com/OrgShipjd2001/DevOpsMatrix.git" /^> >> %nugetDir%\interface.nuspec
 echo ^<readme^>docs\README.md^</readme^> >> %nugetDir%\interface.nuspec
 echo ^<license type="file"^>LICENSE.txt^</license^>  >> %nugetDir%\interface.nuspec
+echo ^<icon^>images/DevOpsMatrix.jpg^</icon^> >> %nugetDir%\interface.nuspec
 echo ^<dependencies^> >> %nugetDir%\interface.nuspec
 echo ^<group targetFramework="net8.0"^> >> %nugetDir%\interface.nuspec
 REM echo ^<dependency id="Microsoft.TeamFoundationServer.Client" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
@@ -44,6 +45,7 @@ REM echo ^<file src="%targetDir%\DevOpsMatrix\**" target="content\net8.0"/^> >> 
 echo ^<file src="%rootDir%\README.md" target="docs\" /^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%nugetdir%\LICENSE.txt" target="" /^> >> %nugetDir%\interface.nuspec
 echo ^<file src="%rootDir%\CM\Nuget\DevOpsMatrix.props" target="build\" /^> >> %nugetDir%\interface.nuspec
+echo ^<file src="%rootdir%\Resources\DevOpsMatrix.jpg" target="images\" /^> >> %nugetDir%\interface.nuspec
 echo ^</files^> >> %nugetDir%\interface.nuspec
 
 echo ^</package^> >> %nugetDir%\interface.nuspec
