@@ -10,6 +10,8 @@ if exist %PublishDir% rmdir /s /q %PublishDir%
 
 pushd %rootDir%
 
+buildtools\Nuget\Nuget.exe restore Modules\TfsSoapApiExecutor\TfsSoapApiExecutor.csproj
+
 dotnet publish Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj -o %pubDebDir%\DevOpsMatrix --no-self-contained -c Debug
 dotnet publish Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj -o %pubDebDir%\DevOpsMatrix --no-self-contained -c Debug
 dotnet publish Modules\TfsDevOpsServer\TfsDevOpsServer.csproj -o %pubDebDir%\DevOpsMatrix\modules\Tfs --no-self-contained -c Debug

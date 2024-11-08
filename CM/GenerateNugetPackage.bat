@@ -55,7 +55,7 @@ echo Generate Nuget package
 erase /f /q %nugetDir%\*.nupkg
 %nugetexe% pack %nugetDir%\interface.nuspec -OutputDirectory %nugetDir%
 
-%nugetexe% source |find "dev"
+%nugetexe% source |find "dev [Enabled]"
 if "%ERRORLEVEL%"=="0" %nugetexe% push %nugetDir%\*.nupkg -Source Dev
 
 :Done
