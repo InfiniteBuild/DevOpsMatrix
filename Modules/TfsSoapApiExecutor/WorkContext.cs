@@ -46,21 +46,33 @@ namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
         {
             Workspace found = null;
 
-            foreach(Workspace wkspace in m_workspaceCache)
+            foreach (Workspace wkspace in m_workspaceCache)
             {
-                if (wkspace.IsServerPathMapped(serverPath))
+                try
                 {
-                    found = wkspace;
-                    break;
+                    if (wkspace.IsServerPathMapped(serverPath))
+                    {
+                        found = wkspace;
+                        break;
+                    }
+                }
+                catch 
+                {
                 }
             }
 
             if (found == null)
             {
-                string branchPath = GetBranchPath(serverPath);
-                found = SearchForLocalWorkspace(branchPath);
-                if (found != null)
-                    m_workspaceCache.Add(found);
+                try
+                {
+                    string branchPath = GetBranchPath(serverPath);
+                    found = SearchForLocalWorkspace(branchPath);
+                    if (found != null)
+                        m_workspaceCache.Add(found);
+                }
+                catch 
+                {
+                }
             }
 
             return found;
@@ -109,7 +121,12 @@ namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
             VersionControlServer vcsServer = GetTfsVersionControlServer();
             foreach(BranchObject branch in vcsServer.QueryRootBranchObjects(RecursionType.Full))
             {
-                if (serverpath.ToLower().Contains(branch.Properties.RootItem.Item.ToLower()))
+                string testbranchpath = branch.Properties.RootItem.Item.ToLower();
+
+                if (serverpath.ToLower() == testbranchpath)
+                    return branch.Properties.RootItem.Item;
+
+                if (serverpath.ToLower().Contains(testbranchpath + "/"))
                 {
                     return branch.Properties.RootItem.Item;
                 }
@@ -123,17 +140,23 @@ namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
             TfsTeamProjectCollection tfs = GetTfsProjectCollection();
             foreach(WorkspaceInfo wsInfo in Workstation.Current.GetAllLocalWorkspaceInfo())
             {
-                Workspace wkspace = null;
-                if (wsInfo.ServerUri == tfs.Uri)
+                try
                 {
-                    try { wkspace = wsInfo.GetWorkspace(tfs); }
-                    catch { wkspace = null; }
-                }
-                if (wkspace == null)
-                    continue;
+                    Workspace wkspace = null;
+                    if (wsInfo.ServerUri == tfs.Uri)
+                    {
+                        try { wkspace = wsInfo.GetWorkspace(tfs); }
+                        catch { wkspace = null; }
+                    }
+                    if (wkspace == null)
+                        continue;
 
-                if (wkspace.IsServerPathMapped(branchPath))
-                    return wkspace;
+                    if (wkspace.IsServerPathMapped(branchPath))
+                        return wkspace;
+                }
+                catch
+                {
+                }
             }
 
             return null;

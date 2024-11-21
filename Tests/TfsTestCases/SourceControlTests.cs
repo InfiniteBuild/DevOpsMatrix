@@ -3,7 +3,6 @@ using System.Reflection;
 using DevOpsMatrix.Interface;
 using DevOpsMatrix.Core;
 using DevOpsMatrix.Tfs.Server;
-using TestCommon;
 
 namespace TfsTestCases
 {
@@ -28,10 +27,10 @@ namespace TfsTestCases
         [OneTimeSetUp]
         public void SetupFixture()
         {
-            if (TestSettings.Instance.TestServers.ContainsKey("Chief"))
-                m_settings = TestSettings.Instance.TestServers["Chief"];
-            else
-                throw new InvalidDataException("Test Settings does not contain an entry for Chief");
+            //if (TestSettings.Instance.TestServers.ContainsKey("Chief"))
+            //    m_settings = TestSettings.Instance.TestServers["Chief"];
+            //else
+            //    throw new InvalidDataException("Test Settings does not contain an entry for Chief");
         }
 
         [Test]

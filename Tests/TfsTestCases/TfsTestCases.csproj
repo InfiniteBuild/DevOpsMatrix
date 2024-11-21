@@ -33,7 +33,6 @@
     <ProjectReference Include="..\..\Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj" />
     <ProjectReference Include="..\..\Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj" />
     <ProjectReference Include="..\..\Modules\TfsDevOpsServer\TfsDevOpsServer.csproj" />
-    <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
   </ItemGroup>
 
   <ItemGroup>

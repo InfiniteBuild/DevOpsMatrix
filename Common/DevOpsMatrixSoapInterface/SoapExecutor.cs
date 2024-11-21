@@ -151,8 +151,10 @@ namespace DevOpsMatrix.Tfs.Soap.Interface
 
             m_ipcClient = new IPCClient();
 
-            if ((!string.IsNullOrWhiteSpace(m_serverUri)) && (!string.IsNullOrWhiteSpace(m_projectName)) && (!string.IsNullOrWhiteSpace(m_accessToken)))
+            if ((!string.IsNullOrWhiteSpace(m_serverUri)) && (!string.IsNullOrWhiteSpace(m_projectName)))
                 ConfigureDevOpsSettings();
+            else
+                throw new InvalidOperationException("DevOps settings are not properly configured.");
         }
 
         public void Shutdown()
