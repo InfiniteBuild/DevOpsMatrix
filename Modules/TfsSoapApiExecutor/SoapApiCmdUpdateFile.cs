@@ -37,7 +37,15 @@ namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
             }
 
             string localpath = area.GetLocalItemForServerItem(payloadObj.ItemServerPath);
-            
+
+            try
+            {
+                area.Get(new GetRequest(localpath, RecursionType.None, VersionSpec.Latest), GetOptions.Overwrite);
+            }
+            catch
+            {
+            }
+
             bool retry = true;
             string errorMsg = string.Empty;
             int retryCount = 0;
@@ -45,7 +53,6 @@ namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
             {
                 try
                 {
-                    area.Get(new GetRequest(localpath, RecursionType.None, VersionSpec.Latest), GetOptions.Overwrite);
                     area.PendEdit(new string[] { localpath }, RecursionType.None, payloadObj.EncodingName, LockLevel.None);
                     retry = false;
                     errorMsg = string.Empty;
@@ -65,6 +72,13 @@ namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
                 result.Result = "failed";
                 result.Message = errorMsg;
                 return result;
+            }
+
+            // If we got to this point, the file was checked out, so if the readonly flag is still set, we can safely clear it.
+            FileAttributes attr = File.GetAttributes(localpath);
+            if ((attr & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                File.SetAttributes(localpath, attr & ~FileAttributes.ReadOnly);
             }
 
             using (FileStream fileStream = new FileStream(localpath, FileMode.Truncate, FileAccess.Write))

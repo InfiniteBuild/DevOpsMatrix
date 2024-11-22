@@ -48,7 +48,13 @@ namespace DevOpsMatrix.Tfs.Soap.ApiExecutor
                 fileStream = new FileStream(localpath, FileMode.Truncate, FileAccess.Write);
             else
                 fileStream = new FileStream(localpath, FileMode.CreateNew, FileAccess.Write);
-            fileStream.Write(command.Data, 0, command.Data.Length);
+
+            // Adding a file without data is a valid scenario
+            if (command.Data != null)
+                fileStream.Write(command.Data, 0, command.Data.Length);
+            else
+                Logging48.LogWarning("No data provided for file: " + payloadObj.ItemServerPath);
+
             fileStream.Close();
 
             bool retry = true;
