@@ -3,6 +3,7 @@ using DevOpsMatrix.Tfs.Soap.Interface;
 using Microsoft.TeamFoundation.SourceControl.WebApi;
 using Microsoft.VisualStudio.Services.WebApi;
 using System.Text;
+using Ude;
 
 namespace DevOpsMatrix.Tfs.Server
 {
@@ -122,8 +123,14 @@ namespace DevOpsMatrix.Tfs.Server
                     {
                         if ((retItem.Encoding == -1) && (!retItem.IsBinary))
                         {
-                            retItem.Content = Encoding.UTF8.GetBytes(serverItem.Content);
-                            retItem.Encoding = Encoding.UTF8.CodePage;
+                            CharsetDetector detector = new CharsetDetector();
+                            detector.Feed(retItem.Content, 0, retItem.Content.Length);
+                            detector.DataEnd();
+                            if (detector.Charset != null)
+                                retItem.Encoding = Encoding.GetEncoding(detector.Charset).CodePage;
+                            else
+                                retItem.Encoding = Encoding.UTF8.CodePage;
+
                             return retItem;
                         }
                     }
@@ -204,8 +211,14 @@ namespace DevOpsMatrix.Tfs.Server
                             {
                                 if ((retItem.Encoding == -1) && (!retItem.IsBinary))
                                 {
-                                    retItem.Content = Encoding.UTF8.GetBytes(serverItem.Content);
-                                    retItem.Encoding = Encoding.UTF8.CodePage;
+                                    CharsetDetector detector = new CharsetDetector();
+                                    detector.Feed(retItem.Content, 0, retItem.Content.Length);
+                                    detector.DataEnd();
+                                    if (detector.Charset != null)
+                                        retItem.Encoding = Encoding.GetEncoding(detector.Charset).CodePage;
+                                    else
+                                        retItem.Encoding = Encoding.UTF8.CodePage;
+
                                     return retItem;
                                 }
                             }

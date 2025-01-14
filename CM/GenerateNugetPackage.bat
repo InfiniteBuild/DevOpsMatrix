@@ -32,8 +32,9 @@ echo ^<license type="file"^>LICENSE.txt^</license^>  >> %nugetDir%\interface.nus
 echo ^<icon^>images/DevOpsMatrix.jpg^</icon^> >> %nugetDir%\interface.nuspec
 echo ^<dependencies^> >> %nugetDir%\interface.nuspec
 echo ^<group targetFramework="net8.0"^> >> %nugetDir%\interface.nuspec
-REM echo ^<dependency id="Microsoft.TeamFoundationServer.Client" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
-REM echo ^<dependency id="Microsoft.VisualStudio.Services.InteractiveClient" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="Ude.NetStandard" version="1.2.0" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="Microsoft.TeamFoundationServer.Client" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="Microsoft.VisualStudio.Services.InteractiveClient" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
 REM echo ^<dependency id="Microsoft.TeamFoundationServer.ExtendedClient" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
 echo ^</group^> >> %nugetDir%\interface.nuspec
 echo ^</dependencies^> >> %nugetDir%\interface.nuspec

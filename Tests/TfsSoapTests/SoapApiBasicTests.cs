@@ -1,6 +1,5 @@
 ﻿using DevOpsMatrix.Tfs.Soap.Interface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using System.Threading;
 
 namespace TfsSoapTests
