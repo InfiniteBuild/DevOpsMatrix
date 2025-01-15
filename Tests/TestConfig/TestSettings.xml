@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestSettings>
+	<PrivateSettings>D:\DevData\TestSettings.xml</PrivateSettings>
+	<!--
+	<DevOpsServers>
+		<Server>
+			<ServerType>[Tfs]</ServerType>
+			<Name>[reference name]</Name>
+			<Project>[name of the tfs project]</Project>
+			<Url>[url to the tfs collection]</Url>
+			<Token>[personal access token - optional]</Token>
+		</Server>
+	</DevOpsServers>
+	-->
+</TestSettings>

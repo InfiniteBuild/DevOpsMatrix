@@ -35,7 +35,17 @@ echo ^<group targetFramework="net8.0"^> >> %nugetDir%\interface.nuspec
 echo ^<dependency id="Ude.NetStandard" version="1.2.0" /^> >> %nugetDir%\interface.nuspec
 echo ^<dependency id="Microsoft.TeamFoundationServer.Client" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
 echo ^<dependency id="Microsoft.VisualStudio.Services.InteractiveClient" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
-REM echo ^<dependency id="Microsoft.TeamFoundationServer.ExtendedClient" version="19.225.1" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="Microsoft.AspNet.WebApi.Client" version="6.0.0" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="Microsoft.Identity.Client" version="4.67.2" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="Microsoft.IdentityModel.JsonWebTokens" version="8.3.0" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.Data.SqlClient" version="4.9.0" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.Formats.Asn1" version="9.0.1" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.IdentityModel.Tokens.Jwt" version="8.3.0" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.Net.Http" version="4.3.4" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.Security.AccessControl" version="6.0.1" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.Security.Cryptography.ProtectedData" version="9.0.1" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.Text.RegularExpressions" version="4.3.1" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="System.Threading.Tasks.Extensions" version="4.6.0" /^> >> %nugetDir%\interface.nuspec
 echo ^</group^> >> %nugetDir%\interface.nuspec
 echo ^</dependencies^> >> %nugetDir%\interface.nuspec
 echo ^</metadata^> >> %nugetDir%\interface.nuspec
