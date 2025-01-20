@@ -46,6 +46,7 @@ echo ^<dependency id="System.Security.AccessControl" version="6.0.1" /^> >> %nug
 echo ^<dependency id="System.Security.Cryptography.ProtectedData" version="9.0.1" /^> >> %nugetDir%\interface.nuspec
 echo ^<dependency id="System.Text.RegularExpressions" version="4.3.1" /^> >> %nugetDir%\interface.nuspec
 echo ^<dependency id="System.Threading.Tasks.Extensions" version="4.6.0" /^> >> %nugetDir%\interface.nuspec
+echo ^<dependency id="Newtonsoft.Json" version="13.0.3" /^> >> %nugetDir%\interface.nuspec
 echo ^</group^> >> %nugetDir%\interface.nuspec
 echo ^</dependencies^> >> %nugetDir%\interface.nuspec
 echo ^</metadata^> >> %nugetDir%\interface.nuspec
