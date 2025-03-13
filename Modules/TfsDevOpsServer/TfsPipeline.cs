@@ -7,6 +7,16 @@ namespace TfsDevOpsMatrix.Tfs.ServerDevOpsServer
     {
         private BuildDefinition? m_buildDef = null;
 
+        public int Id
+        {
+            get
+            {
+                if (m_buildDef != null)
+                    return m_buildDef.Id;
+                return 0;
+            }
+        }
+
         public string Name 
         {
             get

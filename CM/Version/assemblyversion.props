@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Company>shipjd2001</Company>
     <Product>DevOpsMatrix</Product>
-    <Version>0.0.4.0</Version>
-    <FileVersion>0.0.4.0</FileVersion>
+    <Version>0.0.5.0</Version>
+    <FileVersion>0.0.5.0</FileVersion>
   </PropertyGroup>
 </Project>
