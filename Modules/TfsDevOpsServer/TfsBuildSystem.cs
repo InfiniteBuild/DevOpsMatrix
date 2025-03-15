@@ -80,6 +80,33 @@ namespace DevOpsMatrix.Tfs.Server
             return build;
         }
 
+        public IDevOpsPipelineBuild LaunchPipelineBuild(IDevOpsPipeline pipeline, Dictionary<string,string>? variableList = null, Dictionary<string,string>? demandList = null)
+        {
+            BuildHttpClient buildClient = GetBuildClient();
+
+            Build buildsettings = new Build()
+            {
+                Definition = new DefinitionReference() { Id = pipeline.Id }
+            };
+
+            if ((variableList != null) && (variableList.Count > 0))
+                buildsettings.Parameters = Newtonsoft.Json.JsonConvert.SerializeObject(variableList);
+            
+            if ((demandList != null) && (demandList.Count > 0))
+            {
+                foreach (string key in demandList.Keys)
+                {
+                    buildsettings.Demands.Add(new DemandEquals(key, demandList[key]));
+                }
+            }
+
+
+            Build queuedBuild = buildClient.QueueBuildAsync(buildsettings, m_settings.ProjectName).Result;
+            TfsPipelineBuild build = new TfsPipelineBuild(queuedBuild);
+
+            return build;
+        }
+
         public IDevOpsPipelineBuild GetPipelineBuild(int buildId, bool includeArtifacts = false, bool includeLogs = false)
         {
             BuildHttpClient buildClient = GetBuildClient();

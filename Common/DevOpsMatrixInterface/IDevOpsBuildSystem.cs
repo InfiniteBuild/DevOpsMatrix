@@ -11,5 +11,6 @@ namespace DevOpsMatrix.Interface
         void LoadPipelineBuildLogs(IDevOpsPipelineBuild build);
 
         IDevOpsPipelineBuild LaunchPipelineBuild(IDevOpsPipeline pipeline);
+        IDevOpsPipelineBuild LaunchPipelineBuild(IDevOpsPipeline pipeline, Dictionary<string, string>? variableList = null, Dictionary<string, string>? demandList = null);
     }
 }

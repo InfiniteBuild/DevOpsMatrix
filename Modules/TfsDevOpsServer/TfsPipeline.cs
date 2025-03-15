@@ -27,6 +27,26 @@ namespace TfsDevOpsMatrix.Tfs.ServerDevOpsServer
             } 
         }
 
+        public Dictionary<string,string> PipelineVariables
+        {
+            get
+            {
+                if (m_buildDef != null)
+                {
+                    Dictionary<string, string> retDict = new Dictionary<string, string>();
+                    foreach (string varItem in m_buildDef.Variables.Keys)
+                    {
+                        if (m_buildDef.Variables[varItem].IsSecret)
+                            retDict[varItem] = "********";
+                        else
+                            retDict[varItem] = m_buildDef.Variables[varItem].Value;
+                    }
+                    return retDict;
+                }
+                return new Dictionary<string, string>();
+            }
+        }
+
         public Dictionary<int, IDevOpsPipelineBuild> BuildList { get; } = new Dictionary<int, IDevOpsPipelineBuild>();
 
         protected TfsPipeline() 
