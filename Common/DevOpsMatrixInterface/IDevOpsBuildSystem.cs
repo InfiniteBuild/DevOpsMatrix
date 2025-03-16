@@ -3,12 +3,12 @@ namespace DevOpsMatrix.Interface
 {
     public interface IDevOpsBuildSystem : IDevOpsService
     {
-        IDevOpsPipeline GetPipeline(string Name, bool includeArtifacts = false, bool includeLogs = false);
+        IDevOpsPipeline GetPipeline(string Name);
         List<IDevOpsPipeline> GetPipelineList(string Name);
 
-        IDevOpsPipelineBuild GetPipelineBuild(int buildId, bool includeArtifacts = false, bool includeLogs = false);
-        void LoadPipelineBuildArtifacts(IDevOpsPipelineBuild build);
-        void LoadPipelineBuildLogs(IDevOpsPipelineBuild build);
+        IDevOpsPipelineBuild GetPipelineBuild(int buildId);
+        Dictionary<string, IBuildArtifact> GetPipelineBuildArtifacts(IDevOpsPipelineBuild build);
+        List<IBuildStep> GetPipelineBuildLogs(IDevOpsPipelineBuild build);
 
         IDevOpsPipelineBuild LaunchPipelineBuild(IDevOpsPipeline pipeline);
         IDevOpsPipelineBuild LaunchPipelineBuild(IDevOpsPipeline pipeline, Dictionary<string, string>? variableList = null, Dictionary<string, string>? demandList = null);

@@ -23,7 +23,7 @@ namespace DevOpsMatrix.Tfs.Server
             return client;
         }
 
-        public IDevOpsPipeline GetPipeline(string Name, bool includeArtifacts = false, bool includeLogs = false)
+        public IDevOpsPipeline GetPipeline(string Name)
         {
             BuildHttpClient buildClient = GetBuildClient();
 
@@ -31,23 +31,13 @@ namespace DevOpsMatrix.Tfs.Server
             BuildDefinitionReference buildDefRef = buildDefList[0];
             BuildDefinition buildDef = buildClient.GetDefinitionAsync(m_settings.ProjectName, buildDefRef.Id).Result;
 
-            TfsPipeline pipeline = new TfsPipeline(buildDef);
+            TfsPipeline pipeline = new TfsPipeline(buildDef, this);
 
             List<Build> buildList = buildClient.GetBuildsAsync(m_settings.ProjectName, new List<int> { buildDef.Id }, queryOrder: BuildQueryOrder.QueueTimeDescending).Result;
             foreach(Build buildItem in buildList)
             {
-                TfsPipelineBuild build = new TfsPipelineBuild(buildItem);
+                TfsPipelineBuild build = new TfsPipelineBuild(buildItem, this);
                 pipeline.BuildList[buildItem.Id] = build;
-
-                if (includeLogs)
-                {
-                    LoadPipelineBuildLogs(build);
-                }
-
-                if (includeArtifacts)
-                {
-                    LoadPipelineBuildArtifacts(build);
-                }
             }
 
             return pipeline;
@@ -63,7 +53,7 @@ namespace DevOpsMatrix.Tfs.Server
             foreach(BuildDefinitionReference buildDefRef in buildDefList)
             {
                 BuildDefinition buildDef = buildClient.GetDefinitionAsync(m_settings.ProjectName, buildDefRef.Id).Result;
-                TfsPipeline pipeline = new TfsPipeline(buildDef);
+                TfsPipeline pipeline = new TfsPipeline(buildDef, this);
                 retList.Add(pipeline);
             }
 
@@ -75,7 +65,7 @@ namespace DevOpsMatrix.Tfs.Server
             BuildHttpClient buildClient = GetBuildClient();
 
             Build queuedBuild = buildClient.QueueBuildAsync(new Build() { Definition = new DefinitionReference() { Id = pipeline.Id } }, m_settings.ProjectName).Result;
-            TfsPipelineBuild build = new TfsPipelineBuild(queuedBuild);
+            TfsPipelineBuild build = new TfsPipelineBuild(queuedBuild, this);
 
             return build;
         }
@@ -102,34 +92,25 @@ namespace DevOpsMatrix.Tfs.Server
 
 
             Build queuedBuild = buildClient.QueueBuildAsync(buildsettings, m_settings.ProjectName).Result;
-            TfsPipelineBuild build = new TfsPipelineBuild(queuedBuild);
+            TfsPipelineBuild build = new TfsPipelineBuild(queuedBuild, this);
 
             return build;
         }
 
-        public IDevOpsPipelineBuild GetPipelineBuild(int buildId, bool includeArtifacts = false, bool includeLogs = false)
+        public IDevOpsPipelineBuild GetPipelineBuild(int buildId)
         {
             BuildHttpClient buildClient = GetBuildClient();
 
             Build buildItem = buildClient.GetBuildAsync(m_settings.ProjectName, buildId).Result;
-            TfsPipelineBuild build = new TfsPipelineBuild(buildItem);
-
-            if (includeLogs)
-            {
-                LoadPipelineBuildLogs(build);
-            }
-
-            if (includeArtifacts)
-            {
-                LoadPipelineBuildArtifacts(build);
-            }
+            TfsPipelineBuild build = new TfsPipelineBuild(buildItem, this);
 
             return build;
         }
 
-        public void LoadPipelineBuildArtifacts(IDevOpsPipelineBuild build)
+        public Dictionary<string, IBuildArtifact>  GetPipelineBuildArtifacts(IDevOpsPipelineBuild build)
         {
             BuildHttpClient buildClient = GetBuildClient();
+            Dictionary<string, IBuildArtifact> retItem = new Dictionary<string, IBuildArtifact>();
 
             // Get the build artifacts
             List<BuildArtifact> artifactList = buildClient.GetArtifactsAsync(m_settings.ProjectName, build.Id).Result;
@@ -140,13 +121,16 @@ namespace DevOpsMatrix.Tfs.Server
                 buildArt.ResourceType = artifact.Resource.Type;
                 buildArt.Data = artifact.Resource.Data;
 
-                build.ArtifactList[buildArt.Name] = buildArt;
+                retItem[buildArt.Name] = buildArt;
             }
+
+            return retItem;
         }
 
-        public void LoadPipelineBuildLogs(IDevOpsPipelineBuild build)
+        public List<IBuildStep> GetPipelineBuildLogs(IDevOpsPipelineBuild build)
         {
             BuildHttpClient buildClient = GetBuildClient();
+            List<IBuildStep> buildSteps = new List<IBuildStep>();
 
             Timeline buildtimeline = buildClient.GetBuildTimelineAsync(m_settings.ProjectName, build.Id).Result;
             foreach (TimelineRecord record in buildtimeline.Records)
@@ -163,8 +147,10 @@ namespace DevOpsMatrix.Tfs.Server
                     Stream logstream = buildClient.GetBuildLogAsync(m_settings.ProjectName, build.Id, record.Log.Id).Result;
                     step.Log = new StreamReader(logstream).ReadToEnd();
                 }
-                build.BuildSteps.Add(step);
+                buildSteps.Add(step);
             }
+
+            return buildSteps;
         }
     }
 }

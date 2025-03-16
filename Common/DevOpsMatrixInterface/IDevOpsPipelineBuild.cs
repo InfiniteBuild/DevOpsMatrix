@@ -26,6 +26,6 @@ namespace DevOpsMatrix.Interface
         DateTime? FinishTime { get; }
 
         Dictionary<string, IBuildArtifact> ArtifactList { get; }
-        List<IBuildStep> BuildSteps { get; set; }
+        List<IBuildStep> BuildSteps { get; }
     }
 }

@@ -6,6 +6,9 @@ namespace DevOpsMatrix.Tfs.Server
     public class TfsPipelineBuild : IDevOpsPipelineBuild
     {
         private Build? m_tfsBuild = null;
+        private IDevOpsBuildSystem m_buildSystem = null;
+        private Dictionary<string, IBuildArtifact> m_artifactList = new Dictionary<string, IBuildArtifact>();
+        private List<IBuildStep> m_buildSteps = new List<IBuildStep>();
 
         public int Id
         {
@@ -100,14 +103,35 @@ namespace DevOpsMatrix.Tfs.Server
             }
         }
 
-        public Dictionary<string, IBuildArtifact> ArtifactList { get; } = new Dictionary<string, IBuildArtifact>();
-        public List<IBuildStep> BuildSteps { get; set; } = new List<IBuildStep>();
-
-        protected TfsPipelineBuild() 
+        public Dictionary<string, IBuildArtifact> ArtifactList
         {
+            get
+            {
+                if (m_artifactList.Count > 0)
+                    return m_artifactList;
+
+                m_artifactList = m_buildSystem.GetPipelineBuildArtifacts(this);
+                return m_artifactList;
+            }
         }
 
-        public TfsPipelineBuild(Build tfsbuild) : this()
+        public List<IBuildStep> BuildSteps
+        {
+            get 
+            {
+                if (m_buildSteps.Count > 0)
+                    return m_buildSteps;
+                m_buildSteps = m_buildSystem.GetPipelineBuildLogs(this);
+                return m_buildSteps;
+            }
+        }
+
+        protected TfsPipelineBuild(IDevOpsBuildSystem buildsystem) 
+        {
+            m_buildSystem = buildsystem;
+        }
+
+        public TfsPipelineBuild(Build tfsbuild, IDevOpsBuildSystem buildsystem) : this(buildsystem)
         {
             m_tfsBuild = tfsbuild;
         }

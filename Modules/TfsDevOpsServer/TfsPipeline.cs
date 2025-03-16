@@ -6,6 +6,7 @@ namespace TfsDevOpsMatrix.Tfs.ServerDevOpsServer
     public class TfsPipeline : IDevOpsPipeline
     {
         private BuildDefinition? m_buildDef = null;
+        private IDevOpsBuildSystem m_buildSystem = null;
 
         public int Id
         {
@@ -49,11 +50,12 @@ namespace TfsDevOpsMatrix.Tfs.ServerDevOpsServer
 
         public Dictionary<int, IDevOpsPipelineBuild> BuildList { get; } = new Dictionary<int, IDevOpsPipelineBuild>();
 
-        protected TfsPipeline() 
-        { 
+        protected TfsPipeline(IDevOpsBuildSystem buildsystem) 
+        {
+            m_buildSystem = buildsystem;
         }
 
-        public TfsPipeline(BuildDefinition buildDef) : this()
+        public TfsPipeline(BuildDefinition buildDef, IDevOpsBuildSystem buildsystem) : this(buildsystem)
         {
             m_buildDef = buildDef;
         }
