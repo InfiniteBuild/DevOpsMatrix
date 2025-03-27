@@ -27,10 +27,10 @@ namespace TfsTestCases
         [OneTimeSetUp]
         public void SetupFixture()
         {
-            if (TestSettings.Instance.TestServers.ContainsKey("Chief"))
-                m_settings = TestSettings.Instance.TestServers["Chief"];
+            if (TestSettings.Instance.TestServers.ContainsKey("tfssvr-TestProj"))
+                m_settings = TestSettings.Instance.TestServers["tfssvr-TestProj"];
             else
-                throw new InvalidDataException("Test Settings does not contain an entry for Chief");
+                throw new InvalidDataException("Test Settings does not contain an entry for tfssvr-TestProj");
         }
 
         [Test]
@@ -41,6 +41,32 @@ namespace TfsTestCases
             ISourceCodeItem branchItem = m_sourceControl.GetItem(branch);
             List<ISourceCodeHistory> historyList = m_sourceControl.GetHistory(branchItem);
             Assert.That(historyList.Count > 0, "Failed to retrieve history for branch: " + branch);
+        }
+
+        [Test]
+        public void GetItemHistoryFromCS()
+        {
+            string branch = "$/TestProject/Dev/Dev1";
+
+            ISourceCodeItem branchItem = m_sourceControl.GetItem(branch);
+
+            // Retrieve history from specified changeset (cs 50) to later
+            List<ISourceCodeHistory> historyList = m_sourceControl.GetHistory(branchItem, 10, -1, 50);
+            Assert.That(historyList.Count > 0, "Failed to retrieve history for branch: " + branch);
+            Assert.That(historyList[0].Id == 49, "Unexpected changeset: " + historyList[0].Id);
+        }
+
+        [Test]
+        public void GetItemHistoryToCS()
+        {
+            string branch = "$/TestProject/Dev/Dev1";
+
+            ISourceCodeItem branchItem = m_sourceControl.GetItem(branch);
+
+            // Retrieve History from latest until specified changeset (cs 50)
+            List<ISourceCodeHistory> historyList = m_sourceControl.GetHistory(branchItem, 10, 50);
+            Assert.That(historyList.Count > 0, "Failed to retrieve history for branch: " + branch);
+            Assert.That(historyList[0].Id >= 50, "Unexpected changeset: " + historyList[0].Id.ToString());
         }
 
         [Test]

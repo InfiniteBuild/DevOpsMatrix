@@ -353,7 +353,7 @@ namespace DevOpsMatrix.Tfs.Server
                         {
                             foreach (TfvcMergeSource source in change.MergeSources)
                             {
-                                TfsVcMergeInfo info = new TfsVcMergeInfo(source.ServerItem, source.VersionFrom, source.VersionTo);
+                                TfsVcMergeInfo info = new TfsVcMergeInfo(item, source.ServerItem, source.VersionFrom, source.VersionTo);
                                 csInfo.MergeInfo.Add(info);
                             }
                         }
@@ -426,7 +426,7 @@ namespace DevOpsMatrix.Tfs.Server
                         {
                             foreach (TfvcMergeSource source in change.MergeSources)
                             {
-                                TfsVcMergeInfo info = new TfsVcMergeInfo(source.ServerItem, source.VersionFrom, source.VersionTo);
+                                TfsVcMergeInfo info = new TfsVcMergeInfo(item, source.ServerItem, source.VersionFrom, source.VersionTo);
                                 csInfo.MergeInfo.Add(info);
                             }
                         }
@@ -493,7 +493,7 @@ namespace DevOpsMatrix.Tfs.Server
                         {
                             foreach (TfvcMergeSource source in change.MergeSources)
                             {
-                                TfsVcMergeInfo info = new TfsVcMergeInfo(source.ServerItem, source.VersionFrom, source.VersionTo);
+                                TfsVcMergeInfo info = new TfsVcMergeInfo(item, source.ServerItem, source.VersionFrom, source.VersionTo);
                                 csInfo.MergeInfo.Add(info);
                             }
                         }

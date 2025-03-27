@@ -8,6 +8,7 @@ namespace DevOpsMatrix.Interface
 {
     public interface IMergeItemInfo
     {
+        ISourceCodeHistoryItem Source { get; set; }
         string SourceItem { get; set; }
         int FromVersion { get; set; }
         int ToVersion { get; set; }
