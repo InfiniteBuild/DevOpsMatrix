@@ -1,5 +1,6 @@
 # DevOpsMatrix
 
+<<<<<<< HEAD
 DevOpsMatrix is a CSharp library that provides an interface to access different devops systems.
 
 ## Supported systems
@@ -8,3 +9,4 @@ Local GIT repository support is planned next, followed by support for the differ
 
 ## Getting Started
 Coming soon....
+=======
