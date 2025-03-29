@@ -22,8 +22,6 @@ REM Create nuspec
 echo Create NuSpec file
 if EXIST %nuspecFile% erase /f /q %nuspecFile%
 
-copy /y %rootdir%\LICENSE %nugetDir%\LICENSE.txt
-
 echo ^<?xml version="1.0" encoding="utf-8"?^> >> %nuspecFile%
 echo ^<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"^> >> %nuspecFile%
 
@@ -34,7 +32,7 @@ echo ^<description^>A library to interface with different DevOps systems through
 echo ^<authors^>Jared Shipley^</authors^> >> %nuspecFile%
 echo ^<repository type="git" url="https://github.com/OrgShipjd2001/DevOpsMatrix.git" /^> >> %nuspecFile%
 echo ^<readme^>docs\README.md^</readme^> >> %nuspecFile%
-echo ^<license type="file"^>LICENSE.txt^</license^>  >> %nuspecFile%
+echo ^<license type="file"^>License.txt^</license^>  >> %nuspecFile%
 echo ^<icon^>images/DevOpsMatrix.jpg^</icon^> >> %nuspecFile%
 echo ^<dependencies^> >> %nuspecFile%
 echo ^<group targetFramework="net8.0"^> >> %nuspecFile%
@@ -61,7 +59,7 @@ echo ^<files^> >> %nuspecFile%
 echo ^<file src="%sourceDir%\DevOpsMatrix\**" target="lib\net8.0"/^> >> %nuspecFile%
 REM echo ^<file src="%targetDir%\DevOpsMatrix\**" target="content\net8.0"/^> >> %nuspecFile%
 echo ^<file src="%sourceDir%\README.md" target="docs\" /^> >> %nuspecFile%
-echo ^<file src="%sourceDir%\LICENSE.txt" target="" /^> >> %nuspecFile%
+echo ^<file src="%sourceDir%\License.txt" target="" /^> >> %nuspecFile%
 echo ^<file src="%rootDir%\CM\Nuget\DevOpsMatrix.props" target="build\" /^> >> %nuspecFile%
 echo ^<file src="%rootDir%\Resources\DevOpsMatrix.jpg" target="images\" /^> >> %nuspecFile%
 echo ^</files^> >> %nuspecFile%
