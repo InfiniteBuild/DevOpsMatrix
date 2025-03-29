@@ -60,10 +60,10 @@ echo ^</metadata^> >> %nuspecFile%
 echo ^<files^> >> %nuspecFile%
 echo ^<file src="%sourceDir%\DevOpsMatrix\**" target="lib\net8.0"/^> >> %nuspecFile%
 REM echo ^<file src="%targetDir%\DevOpsMatrix\**" target="content\net8.0"/^> >> %nuspecFile%
-echo ^<file src="%rootDir%\README.md" target="docs\" /^> >> %nuspecFile%
+echo ^<file src="%sourceDir%\README.md" target="docs\" /^> >> %nuspecFile%
 echo ^<file src="%sourceDir%\LICENSE.txt" target="" /^> >> %nuspecFile%
-echo ^<file src="%sourceDir%\CM\Nuget\DevOpsMatrix.props" target="build\" /^> >> %nuspecFile%
-echo ^<file src="%sourceDir%\Resources\DevOpsMatrix.jpg" target="images\" /^> >> %nuspecFile%
+echo ^<file src="%rootDir%\CM\Nuget\DevOpsMatrix.props" target="build\" /^> >> %nuspecFile%
+echo ^<file src="%rootDir%\Resources\DevOpsMatrix.jpg" target="images\" /^> >> %nuspecFile%
 echo ^</files^> >> %nuspecFile%
 
 echo ^</package^> >> %nuspecFile%
