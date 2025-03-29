@@ -114,7 +114,6 @@ deploy-droplocation:
   stage: deploy
   variables:
     GIT_STRATEGY: none
-    BranchDrop: $DropLocationRoot\$CI_COMMIT_BRANCH
   rules:
     - exists: 
       - $DropLocationRoot
@@ -125,5 +124,5 @@ deploy-droplocation:
     - $BuildDrop = "$BranchDrop\$CI_BUILD_VERSION"
     - echo "Publish Directory $publishDir"
     - echo "Deploy to $BuildDrop"
-    - '& robocopy /e /s $publishDir $BuildDrop; if ($lastexitcode -lt 2) { $global:LASTEXITCODE = $null }'
+    - '& robocopy /e /s $publishDir $DropLocationRoot\$CI_COMMIT_BRANCH; if ($lastexitcode -lt 2) { $global:LASTEXITCODE = $null }'
     
