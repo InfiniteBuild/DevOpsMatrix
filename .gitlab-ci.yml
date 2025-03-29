@@ -90,8 +90,7 @@ deploy-dev-package:      # This job runs in the deploy stage.
     GIT_STRATEGY: none
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - exists:
-      - $DevPackageStore
+    - if: '$DevPackageStore'
   script:
     - echo "Deploying to Dev Package Store..."
     - '& $NugetExe push $pubNugetDir\*.nupkg -Source $DevPackageStore'
@@ -103,8 +102,7 @@ deploy-release-package:      # This job runs in the deploy stage.
     GIT_STRATEGY: none
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - exists:
-      - $ReleasePackageStore
+    - if: '$ReleasePackageStore'
   script:
     - echo "Deploying to Dev Package Store..."
     - '& $NugetExe push $pubNugetDir\*.nupkg -Source $ReleasePackageStore -ApiKey $RelPackageStoreToken'
@@ -115,8 +113,7 @@ deploy-droplocation:
   variables:
     GIT_STRATEGY: none
   rules:
-    - exists:
-      - $DropLocationRoot
+    - if: '$DropLocationRoot'
   script:
     - $CI_BUILD_VERSION = Get-Content $CI_PROJECT_DIR\version.txt
     - $CI_BUILD_VERSION = $CI_BUILD_VERSION.Trim()
