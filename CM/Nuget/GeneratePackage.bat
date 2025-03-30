@@ -30,7 +30,6 @@ echo ^<license type="file"^>License.txt^</license^>  >> %nuspecFile%
 echo ^<icon^>images/DevOpsMatrix.jpg^</icon^> >> %nuspecFile%
 echo ^<dependencies^> >> %nuspecFile%
 
-REM Corrected FOR loop to process XML dependency files
 for %%i in ("%nugetDir%\data\dependencies*.xml") do (
     type %%i >> %nuspecFile%
 	echo. >> %nuspecFile%

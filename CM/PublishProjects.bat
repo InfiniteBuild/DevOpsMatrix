@@ -34,7 +34,12 @@ copy /y %rootDir%\Resources\DevOpsMatrix.jpg %nugetDir%\Data\DevOpsMatrix.jpg
 
 echo.
 echo Retrieve Nuget package dependency info
-powershell %rootDir%\cm\scripts\generate_dependencies.ps1 -csprojFiles Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj, Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj, Modules\TfsDevOpsServer\TfsDevOpsServer.csproj -outputDir %nugetDir%\Data
+
+REM for readability, set the list in a variable (list is comma delimited)
+set csprojList=Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj
+set csprojList=%csprojList%,Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj
+set csprojList=%csprojList%,Modules\TfsDevOpsServer\TfsDevOpsServer.csproj
+powershell %rootDir%\cm\scripts\generate_dependencies.ps1 -csprojFiles %csprojList% -outputDir %nugetDir%\Data
 
 popd
 
