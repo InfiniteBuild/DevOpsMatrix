@@ -64,7 +64,7 @@ nuget-dev-packages:
     - echo "pubNugetDir $pubNugetDir"
     - echo "pubRelDir $pubRelDir"
     - New-Item -ItemType Directory -Force -Path $pubNugetDir
-    - '& $CI_PROJECT_DIR\cm\GenerateNugetPackage.bat $CI_BUILD_VERSION-$CI_COMMIT_BRANCH $pubRelDir $pubNugetDir\interface.nuspec'
+    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $CI_BUILD_VERSION-$CI_COMMIT_BRANCH $pubRelDir $pubNugetDir\interface.nuspec'
     - '& $NugetExe pack $pubNugetDir\interface.nuspec -OutputDirectory $pubNugetDir'
 
 nuget-release-packages:
@@ -81,7 +81,7 @@ nuget-release-packages:
     - echo "pubNugetDir $pubNugetDir"
     - echo "pubRelDir $pubRelDir"
     - New-Item -ItemType Directory -Force -Path $pubNugetDir
-    - '& $CI_PROJECT_DIR\cm\GenerateNugetPackage.bat $CI_BUILD_VERSION $pubRelDir $pubNugetDir\interface.nuspec'
+    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $CI_BUILD_VERSION $pubRelDir $pubNugetDir\interface.nuspec'
     - '& $NugetExe pack $pubNugetDir\interface.nuspec -OutputDirectory $pubNugetDir'
 
 deploy-dev-package:      # This job runs in the deploy stage.
