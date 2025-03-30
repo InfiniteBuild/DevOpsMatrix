@@ -12,6 +12,6 @@ mkdir %nugetDir% >NUL
 if EXIST %nugetDir%\*.nuspec erase /f /q %nugetDir%\*.nuspec
 erase /f /q %nugetDir%\*.nupkg
 
-call %rootdir%\cm\Nuget\GeneratePackage.bat %version%%prerelease% %targetDir% %nugetDir%\interface.nuspec
+call %rootdir%\cm\Nuget\GeneratePackage.bat %version%%prerelease% %pubRelDir% %nugetDir%\interface.nuspec
 
-%nugetexe% pack %nugetDir%\interface.nuspec -OutputDirectory %nugetDir%
+%rootDir%\buildtools\nuget\nuget.exe pack %nugetDir%\interface.nuspec -OutputDirectory %nugetDir%

@@ -5,8 +5,12 @@ setlocal
 set packVer=%1
 set sourceDir=%2
 set nuspecFile=%3
-
 set nugetDir=%sourceDir%\..\Nuget
+
+echo packVer: %packVer%
+echo sourceDir: %sourceDir%
+echo nuspecFile: %nuspecFile%
+echo nugetDir: %nugetDir%
 
 REM Create nuspec
 echo Create NuSpec file
@@ -25,23 +29,13 @@ echo ^<readme^>docs\README.md^</readme^> >> %nuspecFile%
 echo ^<license type="file"^>License.txt^</license^>  >> %nuspecFile%
 echo ^<icon^>images/DevOpsMatrix.jpg^</icon^> >> %nuspecFile%
 echo ^<dependencies^> >> %nuspecFile%
-echo ^<group targetFramework="net8.0"^> >> %nuspecFile%
-echo ^<dependency id="Ude.NetStandard" version="1.2.0" /^> >> %nuspecFile%
-echo ^<dependency id="Microsoft.TeamFoundationServer.Client" version="19.225.1" /^> >> %nuspecFile%
-echo ^<dependency id="Microsoft.VisualStudio.Services.InteractiveClient" version="19.225.1" /^> >> %nuspecFile%
-echo ^<dependency id="Microsoft.AspNet.WebApi.Client" version="6.0.0" /^> >> %nuspecFile%
-echo ^<dependency id="Microsoft.Identity.Client" version="4.67.2" /^> >> %nuspecFile%
-echo ^<dependency id="Microsoft.IdentityModel.JsonWebTokens" version="8.3.0" /^> >> %nuspecFile%
-echo ^<dependency id="System.Data.SqlClient" version="4.9.0" /^> >> %nuspecFile%
-echo ^<dependency id="System.Formats.Asn1" version="9.0.1" /^> >> %nuspecFile%
-echo ^<dependency id="System.IdentityModel.Tokens.Jwt" version="8.3.0" /^> >> %nuspecFile%
-echo ^<dependency id="System.Net.Http" version="4.3.4" /^> >> %nuspecFile%
-echo ^<dependency id="System.Security.AccessControl" version="6.0.1" /^> >> %nuspecFile%
-echo ^<dependency id="System.Security.Cryptography.ProtectedData" version="9.0.1" /^> >> %nuspecFile%
-echo ^<dependency id="System.Text.RegularExpressions" version="4.3.1" /^> >> %nuspecFile%
-echo ^<dependency id="System.Threading.Tasks.Extensions" version="4.6.0" /^> >> %nuspecFile%
-echo ^<dependency id="Newtonsoft.Json" version="13.0.3" /^> >> %nuspecFile%
-echo ^</group^> >> %nuspecFile%
+
+REM Corrected FOR loop to process XML dependency files
+for %%i in ("%nugetDir%\data\dependencies*.xml") do (
+    type %%i >> %nuspecFile%
+	echo. >> %nuspecFile%
+)
+
 echo ^</dependencies^> >> %nuspecFile%
 echo ^</metadata^> >> %nuspecFile%
 
@@ -56,5 +50,4 @@ echo ^</files^> >> %nuspecFile%
 echo ^</package^> >> %nuspecFile%
 
 :Done
-
 endlocal

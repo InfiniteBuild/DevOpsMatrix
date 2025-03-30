@@ -32,6 +32,9 @@ copy /y %rootDir%\ReadMe.md %nugetDir%\Data\ReadMe.md
 copy /y %rootDir%\CM\Nuget\DevOpsMatrix.props %nugetDir%\Data\DevOpsMatrix.props
 copy /y %rootDir%\Resources\DevOpsMatrix.jpg %nugetDir%\Data\DevOpsMatrix.jpg
 
+echo.
+echo Retrieve Nuget package dependency info
+powershell %rootDir%\cm\scripts\generate_dependencies.ps1 -csprojFiles Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj, Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj, Modules\TfsDevOpsServer\TfsDevOpsServer.csproj -outputDir %nugetDir%\Data
 
 popd
 
