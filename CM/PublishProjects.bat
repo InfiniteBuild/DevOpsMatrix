@@ -1,11 +1,9 @@
 @echo off
 
-set scriptDir=%~dp0
-set rootDir=%scriptDir%..
-set publishDir=%rootDir%\Publish
-set pubRelDir=%publishdir%\Release
-set pubDebDir=%publishdir%\Debug
-set nugetDir=%PublishDir%\Nuget
+if not %1.==. if "%1"=="/force" set force=true
+
+set pubProjScriptDir=%~dp0
+call %pubProjScriptDir%\setvariables.bat %force%
 
 if exist %PublishDir% rmdir /s /q %PublishDir%
 

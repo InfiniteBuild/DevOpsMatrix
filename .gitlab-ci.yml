@@ -119,6 +119,6 @@ deploy-droplocation:
     - 'echo "CI_BUILD_VERSION $CI_BUILD_VERSION"'
     - 'echo "Publish Directory $publishDir"'
     - 'echo "Deploy to $FinalDropLocation"'
-    - 'robocopy /e /s "$publishDir" "$FinalDropLocation"; if ($lastexitcode -lt 2) { $global:LASTEXITCODE = $null }'
+    - 'robocopy /e /s "$publishDir" "$FinalDropLocation"; if ($lastexitcode -le 2) { $global:LASTEXITCODE = $null }'
 
     

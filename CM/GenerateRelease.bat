@@ -1,11 +1,9 @@
 @echo off
 
-set version=1.0.0
-set scriptDir=%~dp0
-set rootDir=%scriptDir%..
-set publishDir=%rootDir%\Publish
-set zipDir=%PublishDir%\zip
-set targetDir=%PublishDir%\Release
+if not %1.==. if "%1"=="/force" set force=true
+
+set genRelScriptDir=%~dp0
+call %genRelScriptDir%\SetVariables.bat %force%
 
 if exist %PublishDir% rmdir /s /q %PublishDir%
 
@@ -13,11 +11,8 @@ pushd %rootDir%
 call %rootDir%\cm\PublishProjects.bat
 popd
 
-for /f "tokens=1,2,3* delims=<>" %%i in (%scriptDir%\version\assemblyversion.props) do if "%%j"=="FileVersion" set version=%%k
-echo Version: %version%
-
 call %rootdir%\cm\GenerateNugetPackage.bat
 
-%rootdir%\buildtools\7-zip\7z.exe a %zipdir%\DevOpsMatrix_%version%.zip %targetdir%\DevOpsMatrix\**
+%rootdir%\buildtools\7-zip\7z.exe a %zipdir%\DevOpsMatrix_%version%.zip %pubRelDir%\DevOpsMatrix\**
 
 :Done
