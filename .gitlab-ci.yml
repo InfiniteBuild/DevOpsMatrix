@@ -115,7 +115,7 @@ deploy-droplocation:
   script:
     - '$CI_BUILD_VERSION = Get-Content "$CI_PROJECT_DIR\version.txt"'
     - '$CI_BUILD_VERSION = $CI_BUILD_VERSION.Trim()'
-    - '$FinalDropLocation = "$DropLocationRoot\$CI_PROJECT_NAME\$CI_COMMIT_BRANCH"'
+    - '$FinalDropLocation = "$DropLocationRoot\$CI_PROJECT_NAME\$CI_COMMIT_BRANCH\$CI_BUILD_VERSION"'
     - 'echo "CI_BUILD_VERSION $CI_BUILD_VERSION"'
     - 'echo "Publish Directory $publishDir"'
     - 'echo "Deploy to $FinalDropLocation"'
