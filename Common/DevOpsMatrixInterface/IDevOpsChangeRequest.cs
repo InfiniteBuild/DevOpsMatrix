@@ -4,7 +4,7 @@ namespace DevOpsMatrix.Interface
     public interface IDevOpsChangeRequest
     {
         int Id { get; }
-        string AssignedTo { get; }
+        string AssignedTo { get; set; }
         string State { get; set; }
         string Title { get; set; }
         string Description { get; set; }
