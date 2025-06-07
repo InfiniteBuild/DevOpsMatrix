@@ -14,6 +14,7 @@ namespace DevOpsMatrix.Tfs.Server
         }
 
         public abstract List<string> GetBranchList();
+        public abstract ISourceCodeItem? GetItemBranch(string svrPath);
         public abstract ISourceCodeItem? GetParentBranch(ISourceCodeItem svritem);
 
         public abstract ISourceCodeItem GetItem(string itemPath, bool includeContent = false);

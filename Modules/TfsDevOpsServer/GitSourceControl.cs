@@ -13,6 +13,11 @@ namespace DevOpsMatrix.Tfs.Server
             throw new NotImplementedException();
         }
 
+        public override ISourceCodeItem? GetItemBranch(string svrPath)
+        {
+            throw new NotImplementedException();
+        }
+
         public override ISourceCodeItem? GetParentBranch(ISourceCodeItem svritem)
         {
             throw new NotImplementedException();

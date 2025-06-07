@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 namespace DevOpsMatrix.Interface
 {
     public delegate IDevOpsServer ServerCreator(IDevOpsSettings settings);
+    public delegate IDevOpsWorkspace WorkspaceCreator(string localPath);
 
     public enum DevOpsServerType
     {

@@ -4,6 +4,7 @@ namespace DevOpsMatrix.Interface
     public interface ISourceCodeControl : IDevOpsService
     {
         List<string> GetBranchList();
+        ISourceCodeItem? GetItemBranch(string svrPath);
         ISourceCodeItem? GetParentBranch(ISourceCodeItem svritem);
 
         ISourceCodeItem GetItem(string itemPath, bool includeContent = false);

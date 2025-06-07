@@ -8,6 +8,7 @@ namespace DevOpsMatrix.Core
         private static DevOpsFactory? m_instance;
 
         private Dictionary<DevOpsServerType, ServerCreator> m_factory = new Dictionary<DevOpsServerType, ServerCreator>();
+        private List<WorkspaceCreator> m_workspaceFactory = new List<WorkspaceCreator>();
 
         public static DevOpsFactory Instance
         {
@@ -19,7 +20,7 @@ namespace DevOpsMatrix.Core
             }
         }
 
-        protected DevOpsFactory() 
+        protected DevOpsFactory()
         {
             DiscoverModules();
         }
@@ -38,7 +39,7 @@ namespace DevOpsMatrix.Core
             }
             else
             {
-                foreach(string subdir in Directory.GetDirectories(modulePath))
+                foreach (string subdir in Directory.GetDirectories(modulePath))
                     scanDirectories.Add(subdir);
             }
 
@@ -60,6 +61,12 @@ namespace DevOpsMatrix.Core
                                 IDevOpsServer handler = (IDevOpsServer)modAsm.CreateInstance(asmType.FullName);
                                 RegisterServer(handler.ServerType, handler.GetCreator());
                             }
+
+                            if (asmType.GetInterface(typeof(IDevOpsWorkspace).FullName) != null)
+                            {
+                                IDevOpsWorkspace workspace = (IDevOpsWorkspace)modAsm.CreateInstance(asmType.FullName);
+                                RegisterWorkspace(workspace.GetCreator());
+                            }
                         }
                     }
                     catch (Exception)
@@ -69,7 +76,21 @@ namespace DevOpsMatrix.Core
             }
         }
 
-        public IDevOpsServer? CreateServer(IDevOpsSettings settings) 
+        public List<IDevOpsWorkspace> GetWorkspace(string localPath)
+        {
+            List<IDevOpsWorkspace> workspace = new List<IDevOpsWorkspace>();
+
+            foreach(WorkspaceCreator creator in m_workspaceFactory)
+            {
+                IDevOpsWorkspace? ws = creator(localPath);
+                if (ws.IsValidWorkspace())
+                    workspace.Add(ws);
+            }
+
+            return workspace;
+        }
+
+        public IDevOpsServer? CreateServer(IDevOpsSettings settings)
         {
             IDevOpsServer? server = null;
 
@@ -84,10 +105,21 @@ namespace DevOpsMatrix.Core
             m_factory.Add(serverType, creator);
         }
 
+        public void RegisterWorkspace(WorkspaceCreator creator)
+        {
+            m_workspaceFactory.Add(creator);
+        }
+
         public void UnregisterServer(DevOpsServerType serverType)
         {
             if (m_factory.ContainsKey(serverType))
                 m_factory.Remove(serverType);
+        }
+
+        public void UnregisterWorkspace(WorkspaceCreator creator)
+        {
+            if (m_workspaceFactory.Contains(creator))
+                m_workspaceFactory.Remove(creator);
         }
     }
 }

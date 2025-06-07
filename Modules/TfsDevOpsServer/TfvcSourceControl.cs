@@ -42,6 +42,36 @@ namespace DevOpsMatrix.Tfs.Server
             return retList;
         }
 
+        public override ISourceCodeItem? GetItemBranch(string svrPath)
+        {
+            TfvcHttpClient tfvcClient = GetHttpClient();
+            ISourceCodeItem itemBranch = null;
+
+            try
+            {
+                TfvcBranch? branch = null;
+                string currentPath = svrPath;
+                while ((branch == null) && !string.IsNullOrWhiteSpace(currentPath))
+                {
+                    try
+                    {
+                        branch = tfvcClient.GetBranchAsync(currentPath, includeParent: true).Result;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    currentPath = Path.GetDirectoryName(currentPath);
+                }
+                itemBranch = GetItem(branch.Path);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return itemBranch;
+        }
+
         public override ISourceCodeItem? GetParentBranch(ISourceCodeItem svritem)
         {
             TfvcHttpClient tfvcClient = GetHttpClient();
