@@ -24,5 +24,8 @@ namespace DevOpsMatrix.Interface
         
         List<ISourceCodePendingChange> GetPendingChanges(string itemPath);
         void CommitChanges(string itemPath, string comment, bool recursive);
+
+        string GetServerPath(string localPath);
+        string GetLocalPath(string serverPath);
     }
 }

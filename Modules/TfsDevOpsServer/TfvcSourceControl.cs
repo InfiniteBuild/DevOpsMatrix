@@ -403,6 +403,7 @@ namespace DevOpsMatrix.Tfs.Server
             {
                 TfvcSourceCodeHistory csInfo = new TfvcSourceCodeHistory();
                 csInfo.Id = csref.ChangesetId;
+                csInfo.Name = csref.ChangesetId.ToString();
                 csInfo.Comment = csref.Comment;
                 csInfo.Timestamp = csref.CreatedDate;
                 csInfo.Owner = csref.Author.DisplayName;
@@ -476,6 +477,7 @@ namespace DevOpsMatrix.Tfs.Server
             {
                 TfvcSourceCodeHistory csInfo = new TfvcSourceCodeHistory();
                 csInfo.Id = csref.ChangesetId;
+                csInfo.Name = csref.ChangesetId.ToString();
                 csInfo.Comment = csref.Comment;
                 csInfo.Timestamp = csref.CreatedDate;
                 csInfo.Owner = csref.Author.DisplayName;
@@ -543,6 +545,7 @@ namespace DevOpsMatrix.Tfs.Server
             {
                 TfvcSourceCodeHistory csInfo = new TfvcSourceCodeHistory();
                 csInfo.Id = csref.ChangesetId;
+                csInfo.Name = csref.ChangesetId.ToString();
                 csInfo.Comment = csref.Comment;
                 csInfo.Timestamp = csref.CreatedDate;
                 csInfo.Owner = csref.Author.DisplayName;

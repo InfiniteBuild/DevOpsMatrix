@@ -10,8 +10,10 @@ namespace DevOpsMatrix.Tfs.Server
     {
         private static string tfExePath = string.Empty;
         private bool IsValid = false;
+        private DevOpsSettings svrSettings;
+        
 
-
+        public string WorkspaceName { get; private set; } = string.Empty;
         public string LocalWorkspaceRoot { get; private set; } = string.Empty;
         public string ServerPathRoot { get; private set; } = string.Empty;
         public string BranchRoot { get; private set;} = string.Empty;
@@ -124,6 +126,32 @@ namespace DevOpsMatrix.Tfs.Server
                 throw new Exception($"Failed to undo changes for item '{itemPath}' in workspace. Exit code: {exitCode}");
         }
 
+        public string GetServerPath(string localPath)
+        {
+            if (!IsValidWorkspace())
+                throw new Exception("Invalid workspace.");
+
+            ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
+
+            Match? svrPathMatch = ExecuteTfCommand($"vc workfold {localPath}", new Regex(@"^\s*(\$/[^\s:]+)", RegexOptions.Multiline));
+            string svrPath = svrPathMatch.Result("$1").Trim();
+
+            return svrPath;
+        }
+
+        public string GetLocalPath(string serverPath)
+        {
+            if (!IsValidWorkspace())
+                throw new Exception("Invalid workspace.");
+
+            ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
+
+            Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:{svrSettings.ServerUri} /workspace:{WorkspaceName} {serverPath}", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
+            string localpath = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
+
+            return localpath;
+        }
+
         private void Initialize(string localPath)
         {
             tfExePath = GetTfExePath();
@@ -137,13 +165,14 @@ namespace DevOpsMatrix.Tfs.Server
             if (localWorkspace != null)
             {
                 IsValid = true;
+                WorkspaceName = localWorkspace.WorkspaceName;
                 LocalWorkspaceRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Value;
                 ServerPathRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Key;
 
                 var match = Regex.Match(ServerPathRoot, @"^\$/([^\\]+)");
                 string projectName = match.Success ? match.Groups[1].Value : string.Empty;
 
-                DevOpsSettings settings = new DevOpsSettings
+                svrSettings = new DevOpsSettings
                 {
                     Name = localWorkspace.CollectionUrl,
                     ServerType = DevOpsServerType.Tfs,
@@ -151,7 +180,7 @@ namespace DevOpsMatrix.Tfs.Server
                     ProjectName = projectName,
                 };
 
-                DevOpsServer = new TfsDevOpsServer(settings);
+                DevOpsServer = new TfsDevOpsServer(svrSettings);
 
                 ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
                 Match? svrPathMatch = ExecuteTfCommand($"vc workfold {localPath}", new Regex(@"^\s*(\$/[^\s:]+)", RegexOptions.Multiline));
