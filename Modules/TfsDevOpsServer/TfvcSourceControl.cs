@@ -316,6 +316,47 @@ namespace DevOpsMatrix.Tfs.Server
             return itemContent; 
         }
 
+        public ISourceCodeHistory GetShelvesetInfo(string shelveset, string owner)
+        {
+            TfvcHttpClient tfvcClient = GetHttpClient();
+
+            // Get the shelveset
+            TfvcShelvesetRequestData shelveRequest = new TfvcShelvesetRequestData();
+            shelveRequest.Name = shelveset;
+            if (!string.IsNullOrWhiteSpace(owner))
+                shelveRequest.Owner = owner;
+
+            List<TfvcShelvesetRef> shelveRef = tfvcClient.GetShelvesetsAsync(shelveRequest).Result;
+
+            if (shelveRef.Count == 0)
+                return null;
+
+            TfvcSourceCodeHistory historyInfo = new TfvcSourceCodeHistory();
+            historyInfo.Comment = shelveRef[0].Comment;
+            historyInfo.Timestamp = shelveRef[0].CreatedDate;
+            historyInfo.Owner = shelveRef[0].Owner.DisplayName;
+            //historyInfo.Id = shelveRef[0].Id;
+            historyInfo.Name = shelveRef[0].Name;
+
+            string shelveId = shelveRef[0].Id;
+
+            List<TfvcChange> changeList = tfvcClient.GetShelvesetChangesAsync(shelveId).Result;
+
+            foreach (TfvcChange change in changeList)
+            {
+                if ((change.Item.IsBranch) || (change.Item.IsFolder))
+                    continue;
+
+                TfvcSourceCodeHistoryItem item = new TfvcSourceCodeHistoryItem();
+                item.ItemPath = change.Item.Path;
+                item.ChangeType = MapChangeType(change.ChangeType);
+                
+                historyInfo.Changes.Add(item);
+            }
+
+            return historyInfo;
+        }
+
         public override List<int> CommitChanges(ISourceCodePendingChangeSet pendingchanges)
         {
             if (DevOpsFeatureToggle.IsEnabled(FeatureSoapCommit))
