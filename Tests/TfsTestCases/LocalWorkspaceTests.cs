@@ -43,7 +43,7 @@ namespace TfsTestCases
             IDevOpsWorkspace workspace = workspaceList[0];
             Assert.That(workspace != null, "Workspace should not be null.");
             Assert.That(workspace.IsValidWorkspace, Is.True, "Workspace is not valid.");
-            Assert.That(workspace.BranchRoot.Equals(@"D:\TFS\TestProjects\Dev\Feature1"), Is.True, "Workspace branch root does not match the expected path.");
+            Assert.That(workspace.LocalBranchRoot.Equals(@"D:\TFS\TestProjects\Dev\Feature1"), Is.True, "Workspace branch root does not match the expected path.");
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace TfsTestCases
             IDevOpsWorkspace workspace = workspaceList[0];
             Assert.That(workspace != null, "Workspace should not be null.");
             Assert.That(workspace.IsValidWorkspace, Is.True, "Workspace is not valid.");
-            Assert.That(workspace.BranchRoot.Equals(@"D:\TFS\TestProjects\Dev\Feature1"), Is.True, "Workspace branch root does not match the expected path.");
+            Assert.That(workspace.LocalBranchRoot.Equals(@"D:\TFS\TestProjects\Dev\Feature1"), Is.True, "Workspace branch root does not match the expected path.");
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace TfsTestCases
             IDevOpsWorkspace workspace = workspaceList[0];
             Assert.That(workspace != null, "Workspace should not be null.");
             Assert.That(workspace.IsValidWorkspace, Is.True, "Workspace is not valid.");
-            Assert.That(workspace.BranchRoot.Equals(@"D:\TFS\TestProjects\Dev\Feature1"), Is.True, "Workspace branch root does not match the expected path.");
+            Assert.That(workspace.LocalBranchRoot.Equals(@"D:\TFS\TestProjects\Dev\Feature1"), Is.True, "Workspace branch root does not match the expected path.");
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace TfsTestCases
             IDevOpsWorkspace workspace = workspaceList[0];
             workspace.Checkout(localWorkspacePath);
 
-            List<ISourceCodePendingChange> pendingchanges = workspace.GetPendingChanges(workspace.BranchRoot);
+            List<ISourceCodePendingChange> pendingchanges = workspace.GetPendingChanges(workspace.LocalBranchRoot);
             Assert.That(pendingchanges.Count > 0, "No pending changes found after checkout.");
 
             workspace.UndoChanges(localWorkspacePath);
