@@ -132,11 +132,18 @@ namespace DevOpsMatrix.Tfs.Server
             if (!IsValidWorkspace())
                 throw new Exception("Invalid workspace.");
 
-            ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
+            string svrPath = string.Empty;
+            if (string.IsNullOrWhiteSpace(ServerBranchRoot))
+            {
+                ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
 
-            Match? svrPathMatch = ExecuteTfCommand($"vc workfold \"{localPath}\"", new Regex(@"^\s*(\$/[^:]+)", RegexOptions.Multiline));
-            string svrPath = svrPathMatch.Result("$1").Trim();
-
+                Match? svrPathMatch = ExecuteTfCommand($"vc workfold \"{localPath}\"", new Regex(@"^\s*(\$/[^:]+)", RegexOptions.Multiline));
+                svrPath = svrPathMatch.Result("$1").Trim();
+            }
+            else
+            {
+                svrPath = localPath.Replace(LocalBranchRoot, ServerBranchRoot, StringComparison.OrdinalIgnoreCase);
+            }
             return svrPath;
         }
 
@@ -145,10 +152,18 @@ namespace DevOpsMatrix.Tfs.Server
             if (!IsValidWorkspace())
                 throw new Exception("Invalid workspace.");
 
-            ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
+            string localpath = string.Empty;
+            if (string.IsNullOrWhiteSpace(ServerBranchRoot))
+            {
+                ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
 
-            Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{svrSettings.ServerUri}\" /workspace:\"{WorkspaceName}\" \"{serverPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
-            string localpath = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
+                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{svrSettings.ServerUri}\" /workspace:\"{WorkspaceName}\" \"{serverPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
+                localpath = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
+            }
+            else
+            {
+                localpath = serverPath.Replace(ServerBranchRoot, LocalBranchRoot, StringComparison.OrdinalIgnoreCase);
+            }
 
             return localpath;
         }

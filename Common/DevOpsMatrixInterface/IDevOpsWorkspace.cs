@@ -11,6 +11,7 @@ namespace DevOpsMatrix.Interface
         string LocalWorkspaceRoot { get; }
         string ServerPathRoot { get; }
         string LocalBranchRoot { get; }
+        string ServerBranchRoot { get; }
         IDevOpsServer DevOpsServer { get; }
 
         WorkspaceCreator GetCreator();
