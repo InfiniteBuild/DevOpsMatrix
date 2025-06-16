@@ -157,7 +157,7 @@ namespace DevOpsMatrix.Tfs.Server
             {
                 ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
 
-                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{svrSettings.ServerUri}\" \"{serverPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
+                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold \"{serverPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
                 localpath = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
             }
             else
@@ -207,7 +207,7 @@ namespace DevOpsMatrix.Tfs.Server
                 ISourceCodeItem? branchitem = sourceControl.GetItemBranch(svrPath);
                 ServerBranchRoot = branchitem?.ItemPath ?? string.Empty;
 
-                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{localWorkspace.CollectionUrl}\" \"{branchitem.ItemPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
+                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold \"{branchitem.ItemPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
                 LocalBranchRoot = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
             }    
         }
