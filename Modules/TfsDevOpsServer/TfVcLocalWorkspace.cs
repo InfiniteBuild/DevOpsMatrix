@@ -157,7 +157,7 @@ namespace DevOpsMatrix.Tfs.Server
             {
                 ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
 
-                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{svrSettings.ServerUri}\" /workspace:\"{WorkspaceName}\" \"{serverPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
+                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{svrSettings.ServerUri}\" \"{serverPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
                 localpath = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
             }
             else
@@ -457,7 +457,8 @@ namespace DevOpsMatrix.Tfs.Server
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    WorkingDirectory = LocalWorkspaceRoot,
                 };
 
                 using (var process = Process.Start(startInfo))
@@ -507,7 +508,8 @@ namespace DevOpsMatrix.Tfs.Server
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    WorkingDirectory = LocalWorkspaceRoot,
                 };
 
                 using (var process = Process.Start(startInfo))
