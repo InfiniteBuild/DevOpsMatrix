@@ -25,7 +25,7 @@ echo ^<version^>%packVer%^</version^> >> %nuspecFile%
 echo ^<description^>A library to interface with different DevOps systems through a common interface.^</description^> >> %nuspecFile%
 echo ^<authors^>Jared Shipley^</authors^> >> %nuspecFile%
 echo ^<repository type="git" url="https://github.com/OrgShipjd2001/DevOpsMatrix.git" /^> >> %nuspecFile%
-echo ^<readme^>docs\README.md^</readme^> >> %nuspecFile%
+echo ^<readme^>docs\ReadMe.md^</readme^> >> %nuspecFile%
 echo ^<license type="file"^>License.txt^</license^>  >> %nuspecFile%
 echo ^<icon^>images/DevOpsMatrix.jpg^</icon^> >> %nuspecFile%
 echo ^<dependencies^> >> %nuspecFile%
@@ -40,7 +40,7 @@ echo ^</metadata^> >> %nuspecFile%
 
 echo ^<files^> >> %nuspecFile%
 echo ^<file src="%sourceDir%\DevOpsMatrix\**" target="lib\net8.0"/^> >> %nuspecFile%
-echo ^<file src="%nugetDir%\Data\README.md" target="docs\" /^> >> %nuspecFile%
+echo ^<file src="%nugetDir%\Data\ReadMe.md" target="docs\" /^> >> %nuspecFile%
 echo ^<file src="%nugetDir%\Data\License.txt" target="" /^> >> %nuspecFile%
 echo ^<file src="%nugetDir%\Data\DevOpsMatrix.props" target="build\" /^> >> %nuspecFile%
 echo ^<file src="%nugetDir%\Data\DevOpsMatrix.jpg" target="images\" /^> >> %nuspecFile%
