@@ -207,7 +207,7 @@ namespace DevOpsMatrix.Tfs.Server
                 ISourceCodeItem? branchitem = sourceControl.GetItemBranch(svrPath);
                 ServerBranchRoot = branchitem?.ItemPath ?? string.Empty;
 
-                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{localWorkspace.CollectionUrl}\" /workspace:\"{localWorkspace.WorkspaceName}\" \"{branchitem.ItemPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
+                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold /collection:\"{localWorkspace.CollectionUrl}\" \"{branchitem.ItemPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
                 LocalBranchRoot = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
             }    
         }
