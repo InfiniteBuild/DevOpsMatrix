@@ -307,9 +307,30 @@ namespace DevOpsMatrix.Tfs.Server
                     CreateNoWindow = true
                 };
 
-                using (var process = Process.Start(startInfo))
+                using (Process process = new Process())
                 {
-                    if (process == null) return allWorkspaces;
+                    string stdOutput = string.Empty;
+                    string stdError = string.Empty;
+                    process.StartInfo = startInfo;
+                    process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                        {
+                            stdOutput += e.Data + Environment.NewLine;
+                        }
+                    };
+
+                    process.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                        {
+                            stdError += e.Data + Environment.NewLine;
+                        }
+                    };
+
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
 
                     process.WaitForExit(tfExecTimeout);
                     if (!process.HasExited)
@@ -321,12 +342,12 @@ namespace DevOpsMatrix.Tfs.Server
 
                     if (process.ExitCode != 0)
                     {
-                        string error = process.StandardError.ReadToEnd();
+                        string error = stdError;
                         Console.WriteLine($"Error executing 'tf vc workspaces' for collection discovery: {error.Trim()}");
                         return allWorkspaces;
                     }
 
-                    string output = process.StandardOutput.ReadToEnd();
+                    string output = stdOutput;
                     // Regex to find "Collection: <URL>" lines.
                     // It looks for "Collection:" at the start of a line, followed by whitespace, then captures the URL.
                     MatchCollection matches = Regex.Matches(output, @"^Collection:\s*(?<url>https?://[^\s]+)", RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -378,9 +399,30 @@ namespace DevOpsMatrix.Tfs.Server
                         CreateNoWindow = true
                     };
 
-                    using (var process = Process.Start(startInfo))
+                    using (Process process = new Process())
                     {
-                        if (process == null) continue; // Skip to next collection
+                        string stdOutput = string.Empty;
+                        string stdError = string.Empty;
+                        process.StartInfo = startInfo;
+                        process.OutputDataReceived += (sender, e) =>
+                        {
+                            if (!string.IsNullOrEmpty(e.Data))
+                            {
+                                stdOutput += e.Data + Environment.NewLine;
+                            }
+                        };
+
+                        process.ErrorDataReceived += (sender, e) =>
+                        {
+                            if (!string.IsNullOrEmpty(e.Data))
+                            {
+                                stdError += e.Data + Environment.NewLine;
+                            }
+                        };
+
+                        process.Start();
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
 
                         process.WaitForExit(tfExecTimeout);
                         if (!process.HasExited)
@@ -392,12 +434,12 @@ namespace DevOpsMatrix.Tfs.Server
 
                         if (process.ExitCode != 0)
                         {
-                            string error = process.StandardError.ReadToEnd();
+                            string error = stdError;
                             Console.WriteLine($"Error executing 'tf vc workspaces /collection:\"{collectionUrl}\"': {error.Trim()}");
                             continue; // Skip to next collection
                         }
 
-                        string xmlOutput = process.StandardOutput.ReadToEnd();
+                        string xmlOutput = stdOutput;
                         if (string.IsNullOrWhiteSpace(xmlOutput))
                         {
                             // This collection might have no workspaces for the current user, or output was suppressed.
@@ -462,9 +504,30 @@ namespace DevOpsMatrix.Tfs.Server
                     WorkingDirectory = LocalWorkspaceRoot,
                 };
 
-                using (var process = Process.Start(startInfo))
+                using (Process process = new Process())
                 {
-                    if (process == null) return null; // Skip to next collection
+                    string stdOutput = string.Empty;
+                    string stdError = string.Empty;
+                    process.StartInfo = startInfo;
+                    process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                        {
+                            stdOutput += e.Data + Environment.NewLine;
+                        }
+                    };
+
+                    process.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                        {
+                            stdError += e.Data + Environment.NewLine;
+                        }
+                    };
+
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
 
                     process.WaitForExit(tfExecTimeout);
                     if (!process.HasExited)
@@ -475,11 +538,11 @@ namespace DevOpsMatrix.Tfs.Server
 
                     if (process.ExitCode != 0)
                     {
-                        string error = process.StandardError.ReadToEnd();
+                        string error = stdError;
                         Console.WriteLine($"Error executing '{command}': {error.Trim()}");
                     }
 
-                    string output = process.StandardOutput.ReadToEnd();
+                    string output = stdOutput;
                     retMatch = retValMatcher.Match(output);
                 }
             }
@@ -500,6 +563,8 @@ namespace DevOpsMatrix.Tfs.Server
             int exitCode = 0;
             output = string.Empty;
 
+            Console.WriteLine($"Executing command: {tfExePath} {command}");
+
             try
             {
                 var startInfo = new ProcessStartInfo
@@ -513,8 +578,31 @@ namespace DevOpsMatrix.Tfs.Server
                     WorkingDirectory = LocalWorkspaceRoot,
                 };
 
-                using (var process = Process.Start(startInfo))
+                using (Process process = new Process())
                 {
+                    string stdOutput = string.Empty;
+                    string stdError = string.Empty;
+                    process.StartInfo = startInfo;
+                    process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                        {
+                            stdOutput += e.Data + Environment.NewLine;
+                        }
+                    };
+
+                    process.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                        {
+                            stdError += e.Data + Environment.NewLine;
+                        }
+                    };
+
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+
                     if (process == null)
                     {
                         output = "Failed to launch tf.exe process.";
@@ -528,11 +616,11 @@ namespace DevOpsMatrix.Tfs.Server
                         Console.WriteLine($"Timeout Error: {command}");
                     }
 
-                    output = process.StandardOutput.ReadToEnd();
+                    output = stdOutput;
                     exitCode = process.ExitCode;
                     if (process.ExitCode != 0)
                     {
-                        string error = process.StandardError.ReadToEnd();
+                        string error = stdError;
                         Console.WriteLine($"Error executing '{command}': {error.Trim()}");
                     }
 
