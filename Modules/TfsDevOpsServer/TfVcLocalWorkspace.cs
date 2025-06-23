@@ -8,6 +8,7 @@ namespace DevOpsMatrix.Tfs.Server
 {
     public class TfVcLocalWorkspace : IDevOpsWorkspace
     {
+        private const int tfExecTimeout = 120000; // two minutes
         private static string tfExePath = string.Empty;
         private bool IsValid = false;
         private DevOpsSettings svrSettings;
@@ -310,7 +311,7 @@ namespace DevOpsMatrix.Tfs.Server
                 {
                     if (process == null) return allWorkspaces;
 
-                    process.WaitForExit(60000); // Give it up to 15 seconds to complete
+                    process.WaitForExit(tfExecTimeout);
                     if (!process.HasExited)
                     {
                         process.Kill();
@@ -381,7 +382,7 @@ namespace DevOpsMatrix.Tfs.Server
                     {
                         if (process == null) continue; // Skip to next collection
 
-                        process.WaitForExit(60000); // Give it time
+                        process.WaitForExit(tfExecTimeout);
                         if (!process.HasExited)
                         {
                             process.Kill();
@@ -465,7 +466,7 @@ namespace DevOpsMatrix.Tfs.Server
                 {
                     if (process == null) return null; // Skip to next collection
 
-                    process.WaitForExit(60000); // Give it time
+                    process.WaitForExit(tfExecTimeout);
                     if (!process.HasExited)
                     {
                         process.Kill();
@@ -520,7 +521,7 @@ namespace DevOpsMatrix.Tfs.Server
                         return 1; // Skip to next collection
                     }
 
-                    process.WaitForExit(60000); // Give it time
+                    process.WaitForExit(tfExecTimeout);
                     if (!process.HasExited)
                     {
                         process.Kill();
