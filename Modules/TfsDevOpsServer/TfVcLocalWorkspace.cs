@@ -563,7 +563,7 @@ namespace DevOpsMatrix.Tfs.Server
             int exitCode = 0;
             output = string.Empty;
 
-            Console.WriteLine($"Executing command: {tfExePath} {command}");
+            //Console.WriteLine($"Executing command: {tfExePath} {command}");
 
             try
             {
@@ -652,8 +652,17 @@ namespace DevOpsMatrix.Tfs.Server
             {
                 var changeTypeStr = changeElem.Attribute("chg")?.Value ?? string.Empty;
                 SourceCodeChangeType changeType = SourceCodeChangeType.None;
-                Enum.TryParse(changeTypeStr, true, out changeType);
 
+                // The change type is space delimited (e.g., "Edit Merge")
+                foreach (string chg in changeTypeStr.Split(" ", StringSplitOptions.RemoveEmptyEntries))
+                {
+                    // case-insensitive parse doesn't handle multiple values well, so we split and parse each one
+                    if (Enum.TryParse(chg.Trim(), true, out SourceCodeChangeType parsedChangeType))
+                    {
+                        changeType |= parsedChangeType; // Combine change types using bitwise OR
+                    }
+                }
+                
                 pendingChanges.Add(new TfvcSourceCodePendingChange
                 {
                     OriginalItem = new TfvcSourceItem(Path.GetDirectoryName(changeElem.Attribute("local")?.Value), Path.GetFileName(changeElem.Attribute("local")?.Value), null, string.Empty, false, 0),
