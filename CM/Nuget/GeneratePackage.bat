@@ -23,8 +23,8 @@ echo ^<metadata^> >> %nuspecFile%
 echo ^<id^>DevOpsMatrix^</id^> >> %nuspecFile%
 echo ^<version^>%packVer%^</version^> >> %nuspecFile%
 echo ^<description^>A library to interface with different DevOps systems through a common interface.^</description^> >> %nuspecFile%
-echo ^<authors^>Jared Shipley^</authors^> >> %nuspecFile%
-echo ^<repository type="git" url="https://github.com/OrgShipjd2001/DevOpsMatrix.git" /^> >> %nuspecFile%
+echo ^<authors^>Infinite Build^</authors^> >> %nuspecFile%
+echo ^<repository type="git" url="https://github.com/InfiniteBuild/DevOpsMatrix.git" /^> >> %nuspecFile%
 echo ^<readme^>docs\ReadMe.md^</readme^> >> %nuspecFile%
 echo ^<license type="file"^>License.txt^</license^>  >> %nuspecFile%
 echo ^<icon^>images/DevOpsMatrix.jpg^</icon^> >> %nuspecFile%
