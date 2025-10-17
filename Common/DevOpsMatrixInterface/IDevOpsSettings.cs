@@ -7,6 +7,9 @@ namespace DevOpsMatrix.Interface
         public DevOpsServerType ServerType { get; }
         public Uri ServerUri { get; }
         public string ProjectName { get; }
+
+        public string Username { get; }
+        public string Password { get; }
         public string AccessToken { get; }
     }
 }

@@ -13,6 +13,10 @@ namespace DevOpsMatrix.Interface
 
         public string AccessToken { get; set; } = string.Empty;
 
+        public string Username { get; set; } = string.Empty;
+
+        public string Password {get; set; } = string.Empty;
+
         public DevOpsSettings()
         {
 
@@ -32,16 +36,6 @@ namespace DevOpsMatrix.Interface
             ServerType = (DevOpsServerType)Enum.Parse(typeof(DevOpsServerType), svrType);
             ServerUri = new Uri(uri);
             ProjectName = project;
-        }
-
-        public DevOpsSettings(string name, DevOpsServerType svrType, Uri uri, string project, string accesstoken) : this(name, svrType, uri, project)
-        {
-            AccessToken = accesstoken;
-        }
-
-        public DevOpsSettings(string name, string svrType, string uri, string project, string accesstoken) : this(name, svrType, uri, project)
-        {
-            AccessToken = accesstoken;
         }
     }
 }
