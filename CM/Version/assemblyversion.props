@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Company>InifiniteBuild</Company>
     <Product>DevOpsMatrix</Product>
-    <Version>0.0.1.0</Version>
-    <FileVersion>0.0.1.0</FileVersion>
+    <Version>0.1.0.0</Version>
+    <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
 </Project>
