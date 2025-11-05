@@ -30,7 +30,7 @@ before_script:
   - '& $CI_PROJECT_DIR\CM\scripts\setup.ps1'
 
 generate_version:
-  stage: versioning
+  stage: initialize
   script:
     - '& $CI_PROJECT_DIR\CM\scripts\generate_version.ps1'
     - '& $CI_PROJECT_DIR\CM\scripts\update_assembly_version.ps1'
