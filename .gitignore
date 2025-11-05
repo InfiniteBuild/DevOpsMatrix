@@ -270,3 +270,4 @@ docker/volumes/*
 # vscode files
 .vscode/
 /_targets/Nuget/MSBuildAnalyser.nuspec
+binaries
