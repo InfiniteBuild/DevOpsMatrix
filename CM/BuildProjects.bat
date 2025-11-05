@@ -12,19 +12,19 @@ pushd %rootDir%
 
 buildtools\Nuget\Nuget.exe restore Modules\TfsSoapApiExecutor\TfsSoapApiExecutor.csproj
 
-dotnet build Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj -o %pubDebDir%\DevOpsMatrix -p:Configuration=Debug;Platform=AnyCPU -t:Rebuild
-dotnet build Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj -o %pubDebDir%\DevOpsMatrix -p:Configuration=Debug;Platform=AnyCPU -t:Rebuild
-dotnet build Modules\TfsDevOpsServer\TfsDevOpsServer.csproj -o %pubDebDir%\DevOpsMatrix\modules\Tfs -p:Configuration=Debug;Platform=AnyCPU -t:Rebuild
+dotnet build Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj -o %builddebugdir%\DevOpsMatrix -p:Configuration=Debug;Platform=AnyCPU -t:Rebuild
+dotnet build Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj -o %builddebugdir%\DevOpsMatrix -p:Configuration=Debug;Platform=AnyCPU -t:Rebuild
+dotnet build Modules\TfsDevOpsServer\TfsDevOpsServer.csproj -o %builddebugdir%\DevOpsMatrix\modules\Tfs -p:Configuration=Debug;Platform=AnyCPU -t:Rebuild
 
 dotnet build Modules\TfsSoapApiExecutor\TfsSoapApiExecutor.csproj -p:Configuration=Debug;Platform=AnyCPU -t:Rebuild
-robocopy /e /s Modules\TfsSoapApiExecutor\bin\Debug %pubDebDir%\DevOpsMatrix\modules\TfsSoap
+robocopy /e /s Modules\TfsSoapApiExecutor\bin\Debug %builddebugdir%\DevOpsMatrix\modules\TfsSoap
 
-dotnet build Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj -o %pubRelDir%\DevOpsMatrix -p:Configuration=Release;Platform=AnyCPU -t:Rebuild
-dotnet build Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj -o %pubRelDir%\DevOpsMatrix -p:Configuration=Release;Platform=AnyCPU -t:Rebuild
-dotnet build Modules\TfsDevOpsServer\TfsDevOpsServer.csproj -o %pubRelDir%\DevOpsMatrix\modules\Tfs -p:Configuration=Release;Platform=AnyCPU -t:Rebuild
+dotnet build Common\DevOpsMatrixCore\DevOpsMatrixCore.csproj -o %buildreleasedir%\DevOpsMatrix -p:Configuration=Release;Platform=AnyCPU -t:Rebuild
+dotnet build Common\DevOpsMatrixInterface\DevOpsMatrixInterface.csproj -o %buildreleasedir%\DevOpsMatrix -p:Configuration=Release;Platform=AnyCPU -t:Rebuild
+dotnet build Modules\TfsDevOpsServer\TfsDevOpsServer.csproj -o %buildreleasedir%\DevOpsMatrix\modules\Tfs -p:Configuration=Release;Platform=AnyCPU -t:Rebuild
 
 dotnet build Modules\TfsSoapApiExecutor\TfsSoapApiExecutor.csproj -p:Configuration=Release;Platform=AnyCPU -t:Rebuild
-robocopy /e /s Modules\TfsSoapApiExecutor\bin\Release %pubRelDir%\DevOpsMatrix\modules\TfsSoap
+robocopy /e /s Modules\TfsSoapApiExecutor\bin\Release %buildreleasedir%\DevOpsMatrix\modules\TfsSoap
 
 goto BuildComplete
 
