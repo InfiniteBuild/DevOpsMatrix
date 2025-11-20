@@ -183,8 +183,9 @@ namespace DevOpsMatrix.Tfs.Server
             {
                 IsValid = true;
                 WorkspaceName = localWorkspace.WorkspaceName;
-                LocalWorkspaceRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Value;
-                ServerPathRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Key;
+                LocalWorkspaceRoot = localWorkspace.ServerToLocalPathMap
+                    .FirstOrDefault(x => localPath.Contains(x.Value, StringComparison.OrdinalIgnoreCase)).Value;
+                ServerPathRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value, StringComparison.OrdinalIgnoreCase)).Key;
 
                 var match = Regex.Match(ServerPathRoot, @"^\$/([^\\/]+)");
                 string projectName = match.Success ? match.Groups[1].Value : string.Empty;
