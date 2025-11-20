@@ -181,35 +181,43 @@ namespace DevOpsMatrix.Tfs.Server
             TfvcLocalWorkspaceInfo localWorkspace = GetWorkspaceRoot(localPath);
             if (localWorkspace != null)
             {
-                IsValid = true;
-                WorkspaceName = localWorkspace.WorkspaceName;
-                LocalWorkspaceRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Value;
-                ServerPathRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Key;
-
-                var match = Regex.Match(ServerPathRoot, @"^\$/([^\\/]+)");
-                string projectName = match.Success ? match.Groups[1].Value : string.Empty;
-
-                svrSettings = new DevOpsSettings
+                try
                 {
-                    Name = localWorkspace.CollectionUrl,
-                    ServerType = DevOpsServerType.Tfs,
-                    ServerUri = new Uri(localWorkspace.CollectionUrl),
-                    ProjectName = projectName,
-                };
+                    IsValid = true;
+                    WorkspaceName = localWorkspace.WorkspaceName;
+                    LocalWorkspaceRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Value;
+                    ServerPathRoot = localWorkspace.ServerToLocalPathMap.FirstOrDefault(x => localPath.Contains(x.Value)).Key;
 
-                DevOpsServer = new TfsDevOpsServer(svrSettings);
+                    var match = Regex.Match(ServerPathRoot, @"^\$/([^\\/]+)");
+                    string projectName = match.Success ? match.Groups[1].Value : string.Empty;
 
-                ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
-                Match? svrPathMatch = ExecuteTfCommand(
-                    $"vc workfold {localPath}",
-                    new Regex(@"^\s*(\$/[^:]+)\s*:\s*([A-Z]:\\[^\r\n]+)", RegexOptions.Multiline)
-                );
-                string svrPath = svrPathMatch.Result("$1").Trim();
-                ISourceCodeItem? branchitem = sourceControl.GetItemBranch(svrPath);
-                ServerBranchRoot = branchitem?.ItemPath ?? string.Empty;
+                    svrSettings = new DevOpsSettings
+                    {
+                        Name = localWorkspace.CollectionUrl,
+                        ServerType = DevOpsServerType.Tfs,
+                        ServerUri = new Uri(localWorkspace.CollectionUrl),
+                        ProjectName = projectName,
+                    };
 
-                Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold \"{branchitem.ItemPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
-                LocalBranchRoot = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
+                    DevOpsServer = new TfsDevOpsServer(svrSettings);
+
+                    ISourceCodeControl sourceControl = DevOpsServer.GetDevOpsService<ITfvcSourceControl>();
+                    Match? svrPathMatch = ExecuteTfCommand(
+                        $"vc workfold {localPath}",
+                        new Regex(@"^\s*(\$/[^:]+)\s*:\s*([A-Z]:\\[^\r\n]+)", RegexOptions.Multiline)
+                    );
+                    string svrPath = svrPathMatch.Result("$1").Trim();
+                    ISourceCodeItem? branchitem = sourceControl.GetItemBranch(svrPath);
+                    ServerBranchRoot = branchitem?.ItemPath ?? string.Empty;
+
+                    Match? localBranchRootMatch = ExecuteTfCommand($"vc workfold \"{branchitem.ItemPath}\"", new Regex(":\\s*(?<localpath>[A-Z]:\\\\[^\\r\\n]+)", RegexOptions.Multiline));
+                    LocalBranchRoot = localBranchRootMatch?.Groups["localpath"].Value.Trim() ?? string.Empty;
+                }
+                catch(Exception exc)
+                {
+                    IsValid = false;
+                    Console.WriteLine($"Error initializing TFVC local workspace: {exc.Message}");
+                }
             }    
         }
 
