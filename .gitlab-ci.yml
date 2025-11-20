@@ -113,10 +113,11 @@ nuget-release-packages:
     - if: $CI_COMMIT_TAG
   script:
     - echo "Creating Release Packages"
+    - echo "Release Version: $CI_BUILD_VERSION"
     - echo "BuildReleaseDir $BuildReleaseDir"
     - echo "NugetDir $nugetDir"
     - New-Item -ItemType Directory -Force -Path $nugetDir
-    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $STATIC_VERSION $BuildReleaseDir $nugetDir\interface.nuspec'
+    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $CI_BUILD_VERSION $BuildReleaseDir $nugetDir\interface.nuspec'
     - '& $NugetExe pack $nugetDir\interface.nuspec -OutputDirectory $nugetDir'
   artifacts:
     paths:
