@@ -113,7 +113,7 @@ nuget-release-packages:
     - if: $CI_COMMIT_TAG
   script:
     - echo "Creating Release Packages"
-    - echo "Release Version: $CI_BUILD_VERSION"
+    - echo "Release Version $CI_BUILD_VERSION"
     - echo "BuildReleaseDir $BuildReleaseDir"
     - echo "NugetDir $nugetDir"
     - New-Item -ItemType Directory -Force -Path $nugetDir
