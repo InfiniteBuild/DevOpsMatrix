@@ -66,6 +66,8 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code..."
     - '& $CI_PROJECT_DIR\CM\BuildProjects.bat'
     - echo "Compile complete."
+    - '& $CI_PROJECT_DIR\CM\PublishProjects.bat'
+    - echo "Publish complete."
   artifacts:
     paths:
       - $buildDir/
@@ -90,10 +92,10 @@ nuget-dev-packages:
     - echo "Static Version $STATIC_VERSION"
     - echo "CI_BUILD_VERSION $CI_BUILD_VERSION"
     - echo "CI_BUILD_NUMBER $CI_BUILD_NUMBER"
-    - echo "buildReleaseDir $buildReleaseDir"
+    - echo "pubRelDir $pubRelDir"
     - echo "NugetDir $nugetDir"
     - New-Item -ItemType Directory -Force -Path $nugetDir
-    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $STATIC_VERSION-$CI_COMMIT_BRANCH.$CI_BUILD_NUMBER $buildReleaseDir $nugetDir\interface.nuspec'
+    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $STATIC_VERSION-$CI_COMMIT_BRANCH.$CI_BUILD_NUMBER $pubRelDir $nugetDir\interface.nuspec'
     - '& $NugetExe pack $nugetDir\interface.nuspec -OutputDirectory $nugetDir'
   artifacts:
     paths:
@@ -114,10 +116,10 @@ nuget-release-packages:
   script:
     - echo "Creating Release Packages"
     - echo "Release Version $CI_BUILD_VERSION"
-    - echo "BuildReleaseDir $BuildReleaseDir"
+    - echo "pubRelDir $pubRelDir"
     - echo "NugetDir $nugetDir"
     - New-Item -ItemType Directory -Force -Path $nugetDir
-    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $CI_BUILD_VERSION $BuildReleaseDir $nugetDir\interface.nuspec'
+    - '& $CI_PROJECT_DIR\cm\Nuget\GeneratePackage.bat $CI_BUILD_VERSION $pubRelDir $nugetDir\interface.nuspec'
     - '& $NugetExe pack $nugetDir\interface.nuspec -OutputDirectory $nugetDir'
   artifacts:
     paths:
